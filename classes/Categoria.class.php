@@ -36,5 +36,28 @@ class Categoria extends Crud {
       }
       return false;
    }
+   
+   public function delete($id) {
+      $sql = "DELETE FROM $this->table WHERE id = :id";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         return true;
+      }
+      return false;
+   }
+   
+   public function status($valor, $id) {
+      $sql = "UPDATE $this->table SET status = :status WHERE id = :id";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':status', $valor);
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         return true;
+      }
+      return false;
+   }
 
 }
