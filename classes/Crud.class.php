@@ -16,7 +16,7 @@ abstract class Crud {
    // Força a classe que estende Crud a definir esses métodos
    abstract protected function find($id);
    abstract protected function findAll();
-   abstract protected function insert();
+   //abstract protected function insert();
    
    
    

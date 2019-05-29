@@ -26,8 +26,15 @@ class Categoria extends Crud {
       return $result;
    }
 
-   protected function insert() {
-      
+   public function insert($categoria) {
+      $sql = "INSERT INTO $this->table (nome) VALUES (:nome)";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':nome', $categoria);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         return true;
+      }
+      return false;
    }
 
 }
