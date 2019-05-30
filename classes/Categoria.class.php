@@ -11,8 +11,16 @@ class Categoria extends Crud {
    private $table = 'categoria';  
    
    
-   protected function find($id) {
-      
+   public function find($id) {
+      $result = array();
+      $sql = "SELECT id, nome FROM {$this->table} WHERE id = :id";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         $result = $stmt->fetch();
+      }
+      return $result;
    }
 
    public function findAll() {
@@ -48,7 +56,20 @@ class Categoria extends Crud {
       return false;
    }
    
-   public function status($valor, $id) {
+   public function update($id, $nome) {
+      $sql = "UPDATE $this->table SET nome = :nome WHERE id = :id";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         return true;
+      }
+      return false;
+   }
+
+
+   public function status($id, $valor) {
       $sql = "UPDATE $this->table SET status = :status WHERE id = :id";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':status', $valor);

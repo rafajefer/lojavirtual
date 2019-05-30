@@ -1,5 +1,6 @@
 $(function () {
    fetchCategorias();
+   
    // Abre o formulario add categoria
    $(document).on('click', '#categoria-add', function () {
       $.ajax({
@@ -23,6 +24,36 @@ $(function () {
          }
       });
    });
+   
+   // Editar categoria
+   $(document).on('click', 'a[data-edit]', function() {
+      
+      let id = $(this).attr('data-edit');
+      // Chama form e carrega os dados no form
+      $.ajax({
+         url: 'categoria-form-edit.php',
+         type: 'POST',
+         data: {id},
+         success: function (response) {            
+            let modal = $('#myModal');
+            modal.find(".modal-header").addClass("bg-info").addClass("text-white");
+            modal.find("h4").text("Editar categoria");
+            modal.find('.modal-body').html(response);
+            modal.find('.modal-footer').hide();
+            modal.modal();
+            modal.submit(function () {
+               let nome = $('#categoria_nome').val();
+               let id = $('#categoria_id').val();
+               
+               // Altera categoria no banco de dados
+               $.post('categoria-edit', {nome: nome, id: id}, function (data) {
+                  fetchCategorias();
+               });
+            });
+             
+         }
+      });
+   });
    // Deleta categoria
    $(document).on('click', 'a[data-delete]', function () {
       let id = $(this).attr('data-delete');
@@ -33,28 +64,8 @@ $(function () {
          });
       }
    });
-   /*
-    $(document).on('change', function () {
-    
-    var $input = $(this);
-    $("label").text($input.is( ":checked" ));
-    
-    alert(elemento);
-    if (elemento) {
-    alert("checked");
-    elemento.attr("checked", "checked");
-    alert("ok");
-    } else {
-    alert("no checked");
-    }
-    $.post('categoria-status.php', {id}, function (response) {
-    fetchCategorias();
-    console.log(response);
-    });
-    
-    
-    });
-    * */
+   
+   // Altera o status da categoria para ativo ou inativo
    $(document).on('click', 'input[type="checkbox"]', function () {
       let id = $(this).attr('data-id');
       let valor = $(this).attr('data-value');

@@ -14,7 +14,7 @@ foreach ($categorias->findAll() as $cat):
          </div>
       </td>
       <td class="text-center">
-         <a href="#" class="btn btn-success" data-id="<?php echo $cat->id; ?>">Editar</a>
+         <a href="#" class="btn btn-success" data-edit="<?php echo $cat->id; ?>">Editar</a>
          <a href="#" class="btn btn-danger" data-delete="<?php echo $cat->id; ?>">Excluir</a>
       </td>
    </tr>

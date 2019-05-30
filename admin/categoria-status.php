@@ -10,7 +10,7 @@ if(isset($_POST['id'])) {
    
    $cat = new Categoria();
    
-   if($cat->status($valor, $id)) {
+   if($cat->status($id, $valor)) {
       echo "Status da categoria alterado com Sucesso";
    } else {
       echo "Falha ao alterar status da categoria";
