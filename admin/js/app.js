@@ -76,9 +76,12 @@ $(function () {
    });
 
    function fetchCategorias() {
+      let perPage = $('ul[data-perPage]').attr('data-perPage');
+      let inicio = $('ul[data-inicio]').attr('data-inicio');
       $.ajax({
          url: 'categoria-list.php',
-         type: 'GET',
+         data: {perPage, inicio},
+         type: 'POST',
          success: function (response) {
             $("#categoria-listagem").html(response);
          }

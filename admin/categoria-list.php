@@ -2,7 +2,7 @@
 require_once '../autoload.php';
 
 $categorias = new Categoria();
-foreach ($categorias->findAll() as $cat):
+foreach ($categorias->paginacao((int)$_POST['perPage'], (int)$_POST['inicio']) as $cat):
    ?>
    <tr>
       <td><?php echo $cat->id; ?></td>

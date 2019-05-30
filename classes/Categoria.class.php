@@ -22,6 +22,7 @@ class Categoria extends Crud {
       }
       return $result;
    }
+      
 
    public function findAll() {
       $result = array();
@@ -79,6 +80,25 @@ class Categoria extends Crud {
          return true;
       }
       return false;
+   }
+   
+   public function paginacao($inicio, $perPage) {
+      $result = array();
+      $sql = "SELECT * FROM $this->table ORDER BY nome LIMIT $perPage, $inicio ";
+      $stmt = Conexao::prepare($sql);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
+      }      
+      return $result;
+   }
+   
+   public static function total() {
+      
+      $sql = "SELECT id FROM categoria";
+      $stmt = Conexao::prepare($sql);
+      $stmt->execute();
+      return $stmt->rowCount();
    }
 
 }
