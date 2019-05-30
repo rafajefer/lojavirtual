@@ -1,12 +1,12 @@
-<div data-page="categorias">
-   <h1>Lista de Categoria: </h1>
+<div data-page="subcategorias">
+   <h1>Lista de Subcategoria </h1>
    <hr />   
    <div class="d-flex">
       <div>
          <div class="input-group mt-3 mb-3">
             <div class="input-group-prepend">
                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                  Categoria
+                  Subcategoria
                </button>
                <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Link 1</a>
