@@ -28,7 +28,7 @@ $(function () {
          success: function (response) {
             let modal = $('#myModal');
             modal.find(".modal-header").addClass("bg-info").addClass("text-white");
-            modal.find("h4").text("Adicionar nova subcategoria");
+            modal.find("h4").text("Adicionar novo produto");
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
@@ -57,7 +57,7 @@ $(function () {
          success: function (response) {
             let modal = $('#myModal');
             modal.find(".modal-header").addClass("bg-info").addClass("text-white");
-            modal.find("h4").text("Editar subcategoria");
+            modal.find("h4").text("Editar produto");
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();

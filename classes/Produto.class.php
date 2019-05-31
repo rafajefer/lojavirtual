@@ -35,11 +35,21 @@ class Produto extends Crud {
       return $result;
    }
 
-   public function insert($subcategoria, $categoria_id) {
-      $sql = "INSERT INTO $this->table (nome, categoria_id) VALUES (:nome, :categoria_id)";
+   public function insert($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque) {
+      $sql = "INSERT INTO $this->table (categoria_id, subcategoria_id, fabricante_id, nome, preco_alto, preco, descricao, detalhes, status, thumbnail, destaque) "
+              . "VALUES (:categoria_id, :subcategoria_id, :fabricante_id, :nome, :preco_alto, :preco, :descricao, :detalhes, :status, :thumbnail, :destaque)";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $subcategoria);
       $stmt->bindValue(':categoria_id', $categoria_id);
+      $stmt->bindValue(':subcategoria_id', $subcategoria_id);
+      $stmt->bindValue(':fabricante_id', $fabricante_id);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':preco_alto', $preco_alto);
+      $stmt->bindValue(':preco', $preco);
+      $stmt->bindValue(':descricao', $descricao);
+      $stmt->bindValue(':detalhes', $detalhes);
+      $stmt->bindValue(':status', $status);
+      $stmt->bindValue(':thumbnail', $thumbnail);
+      $stmt->bindValue(':destaque', $destaque);
       $stmt->execute();
       if($stmt->rowCount() > 0) {
          return true;
@@ -97,7 +107,7 @@ class Produto extends Crud {
    
    public static function total() {
       
-      $sql = "SELECT id FROM subcategoria";
+      $sql = "SELECT id FROM produto";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();
