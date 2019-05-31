@@ -6,14 +6,14 @@
  * @author Rafael Jeferson <rafa.jefer@gmail.com>
  * @tutorial package
  */
-class Categoria extends Crud {
+class Subcategoria extends Crud {
    
-   private $table = 'categoria';  
+   private $table = 'subcategoria';  
    
    
    public function find($id) {
       $result = array();
-      $sql = "SELECT id, nome FROM {$this->table} WHERE id = :id";
+      $sql = "SELECT * FROM {$this->table} WHERE id = :id";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':id', $id);
       $stmt->execute();
@@ -35,10 +35,11 @@ class Categoria extends Crud {
       return $result;
    }
 
-   public function insert($categoria) {
-      $sql = "INSERT INTO $this->table (nome) VALUES (:nome)";
+   public function insert($subcategoria, $categoria_id) {
+      $sql = "INSERT INTO $this->table (nome, categoria_id) VALUES (:nome, :categoria_id)";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $categoria);
+      $stmt->bindValue(':nome', $subcategoria);
+      $stmt->bindValue(':categoria_id', $categoria_id);
       $stmt->execute();
       if($stmt->rowCount() > 0) {
          return true;
@@ -95,7 +96,7 @@ class Categoria extends Crud {
    
    public static function total() {
       
-      $sql = "SELECT id FROM categoria";
+      $sql = "SELECT id FROM subcategoria";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();

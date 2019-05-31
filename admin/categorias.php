@@ -71,7 +71,7 @@
    <!-- End .\ Paginação -->
    
    <!-- The Modal -->
-   <div class="modal fade" id="myModal">
+   <div class="modal fade" id="myModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
 
