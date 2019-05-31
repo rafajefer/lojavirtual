@@ -38,14 +38,16 @@
       </tbody>
    </table>
    <?php 
-      // total de categorias cadastradas
+      require_once '../autoload.php';
+      
+      // total de registros cadastrados
       $total = Subcategoria::total();
       
       // pega valor $_GET['pagina'] ou seja valor da pagina atual
       $paginaAtual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
       
       // quantidade de registros por pagina
-      $perPage = 2;
+      $perPage = 10;
       
       // total de paginas
       $paginacao = ceil($total / $perPage); // Arredonda pra cima

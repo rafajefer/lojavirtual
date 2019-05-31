@@ -1,6 +1,6 @@
 $(function () {
 
-   console.log("app.subcategoria.js carregada");
+   console.log("app.produtos.js carregada");
 
    // Pega o nome da page
    var view = "view/" + $('div[data-page]').attr('data-page'); // Pega o nome da page

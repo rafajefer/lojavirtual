@@ -10,7 +10,7 @@
                         <a href="<?php echo URL_ADMIN."index.php?p=categorias"?>" class="list-group-item <?php echo $page=="categorias" ? "list-group-item-primary": ""; ?>">Categorias</a>
                         <a href="<?php echo URL_ADMIN."index.php?p=subcategorias"?>" class="list-group-item <?php echo $page=="subcategorias" ? "list-group-item-primary": ""; ?>">Subcategorias</a>
                         <a href="<?php echo URL_ADMIN."index.php?p=produtos"?>" class="list-group-item <?php echo $page=="produtos" ? "list-group-item-primary": ""; ?>">Produtos</a>
-                        <a href="<?php echo URL_ADMIN."index.php?p=capitulos"?>" class="list-group-item <?php echo $page=="capitulos" ? "list-group-item-primary": ""; ?>">Capítulo</a>
+                        <a href="<?php echo URL_ADMIN."index.php?p=fabricantes"?>" class="list-group-item <?php echo $page=="fabricantes" ? "list-group-item-primary": ""; ?>">Fabricantes</a>
                         <a href="<?php echo URL_ADMIN."index.php?p=aulas"?>" class="list-group-item <?php echo $page=="aulas" ? "list-group-item-primary": ""; ?>">Aulas</a>
                      </ul>
                   </nav>
@@ -19,12 +19,12 @@
                <div class="col-md-9">
                   <article>
                      <?php 
-                        
-                        
+                        //require_once '../autoload.php';
+                       // echo $total = Subcategoria::total();
                         if(!empty($page)) {
-                           $page = $page.".php";
-                           if(file_exists($page)) {
-                              require_once $page;
+                           $filename = "view/$page/index.php";
+                           if(file_exists($filename)) {
+                              require_once $filename;
                            }
                         } else {                           
                            require_once 'home.php';

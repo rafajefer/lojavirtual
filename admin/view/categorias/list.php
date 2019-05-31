@@ -1,7 +1,7 @@
 <?php
-require_once '../autoload.php';
+require_once '../../../autoload.php';
+$objeto = new Categoria();
 
-$objeto = new Subcategoria();
 foreach ($objeto->paginacao((int)$_POST['perPage'], (int)$_POST['inicio']) as $row):
    ?>
    <tr>

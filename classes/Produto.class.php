@@ -6,9 +6,9 @@
  * @author Rafael Jeferson <rafa.jefer@gmail.com>
  * @tutorial package
  */
-class Subcategoria extends Crud {
+class Produto extends Crud {
    
-   private $table = 'subcategoria';  
+   private $table = 'produto';  
    
    
    public function find($id) {

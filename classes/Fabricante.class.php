@@ -6,9 +6,9 @@
  * @author Rafael Jeferson <rafa.jefer@gmail.com>
  * @tutorial package
  */
-class Subcategoria extends Crud {
+class Fabricante extends Crud {
    
-   private $table = 'subcategoria';  
+   private $table = 'fabricante';  
    
    
    public function find($id) {
@@ -35,11 +35,13 @@ class Subcategoria extends Crud {
       return $result;
    }
 
-   public function insert($subcategoria, $categoria_id) {
-      $sql = "INSERT INTO $this->table (nome, categoria_id) VALUES (:nome, :categoria_id)";
+   public function insert($nome, $telefone, $email, $status) {
+      $sql = "INSERT INTO $this->table (nome, telefone, email, status) VALUES (:nome, :telefone, :email, :status)";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $subcategoria);
-      $stmt->bindValue(':categoria_id', $categoria_id);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':telefone', $telefone);
+      $stmt->bindValue(':email', $email);
+      $stmt->bindValue(':status', $status);
       $stmt->execute();
       if($stmt->rowCount() > 0) {
          return true;
@@ -58,12 +60,14 @@ class Subcategoria extends Crud {
       return false;
    }
    
-   public function update($id, $nome, $categoria_id) {
-      $sql = "UPDATE $this->table SET nome = :nome, categoria_id = :categoria_id WHERE id = :id";
+   public function update($id, $nome, $telefone, $email, $status) {
+      $sql = "UPDATE $this->table SET nome = :nome, telefone = :telefone, email = :email, status = :status WHERE id = :id";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $nome);
-      $stmt->bindValue(':categoria_id', $categoria_id);
       $stmt->bindValue(':id', $id);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':telefone', $telefone);
+      $stmt->bindValue(':email', $email);
+      $stmt->bindValue(':status', $status);
       $stmt->execute();
       if($stmt->rowCount() > 0) {
          return true;
@@ -97,7 +101,7 @@ class Subcategoria extends Crud {
    
    public static function total() {
       
-      $sql = "SELECT id FROM subcategoria";
+      $sql = "SELECT id FROM fabricante";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();

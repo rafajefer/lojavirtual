@@ -1,5 +1,5 @@
 <?php
-require_once '../autoload.php';
+require_once '../../../autoload.php';
 
 if (!empty($_POST['id'])) :
    $id = (int) $_POST['id'];

@@ -1,11 +1,13 @@
 <?php
 
-require_once '../autoload.php';
+require_once '../../../autoload.php';
 
-if(isset($_POST['nome'])) {
+if(!empty($_POST['nome'])) {
+   
    $nome = addslashes($_POST['nome']);
-   $cat = new Categoria();
-   if($cat->insert($nome)) {
+   
+   $objeto = new Categoria();
+   if($objeto->insert($nome)) {
       echo "Categoria adicionada com Sucesso";
    } else {
       echo "Falha ao adiciona categoria";

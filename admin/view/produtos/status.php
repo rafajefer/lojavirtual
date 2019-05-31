@@ -1,6 +1,6 @@
 <?php
 
-require_once '../autoload.php';
+require_once '../../../autoload.php';
 
 
 if(isset($_POST['id'])) {

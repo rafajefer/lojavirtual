@@ -1,11 +1,29 @@
 $(function () {
-   console.log("app.categoria.js carregada");
-   fetchCategorias();
    
-   // Abre o formulario add categoria   
+   console.log("app.categoria.js carregada");
+   
+   // Pega o nome da page
+   var view = "view/"+$('div[data-page]').attr('data-page');
+   fetchAll();
+   
+   // Listando os registros por pagina
+   function fetchAll() {
+      let perPage = $('ul[data-perPage]').attr('data-perPage');
+      let inicio = $('ul[data-inicio]').attr('data-inicio');
+      $.ajax({
+         url: view + '/list.php',
+         data: {perPage, inicio},
+         type: 'POST',
+         success: function (response) {
+            $("#listagem").html(response);
+         }
+      });
+   }
+   
+   // Abre o formulario e adiciona registro   
    $(document).on('click', '#register-add', function () {
       $.ajax({
-         url: 'categoria-form.php',
+         url: view + '/form.php',
          type: 'GET',
          success: function (response) {
             let modal = $('#myModal');
@@ -14,11 +32,10 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function (e) {
-               //e.preventDefault();
-               let nome = modal.find("input").val();
-               // Salva categoria no banco de dados
-               $.post('categoria-add', {nome: nome}, function (data) {
+            modal.submit(function () {
+               let nome = $('#nome').val();
+               // Salva registro no banco de dados
+               $.post(view + '/add', {nome: nome}, function (data) {
                   console.log(data);
                });
             });
@@ -26,13 +43,13 @@ $(function () {
       });
    });
    
-   // Editar categoria
+   // Editar registro
    $(document).on('click', 'a[data-edit]', function() {
       
       let id = $(this).attr('data-edit');
       // Chama form e carrega os dados no form
       $.ajax({
-         url: 'categoria-form-edit.php',
+         url: view + '/form-edit.php',
          type: 'POST',
          data: {id},
          success: function (response) {            
@@ -43,24 +60,25 @@ $(function () {
             modal.find('.modal-footer').hide();
             modal.modal();
             modal.submit(function () {
-               let nome = $('#categoria_nome').val();
-               let id = $('#categoria_id').val();
+               let nome = $('#nome').val();
+               let id = $('#id').val();
                
                // Altera categoria no banco de dados
-               $.post('categoria-edit', {nome: nome, id: id}, function (data) {
-                  fetchCategorias();
+               $.post(view + '/edit', {nome: nome, id: id}, function (data) {
+                  fetchAll();
                });
             });
              
          }
       });
    });
+   
    // Deleta categoria
    $(document).on('click', 'a[data-delete]', function () {
       let id = $(this).attr('data-delete');
-      if (confirm('Tem certeza que deseja excluir a categoria?')) {
-         $.post('categoria-delete.php', {id}, function (response) {
-            fetchCategorias();
+      if (confirm('Tem certeza que deseja excluir esse item?')) {
+         $.post(view + '/delete.php', {id}, function (response) {
+            fetchAll();
             console.log(response);
          });
       }
@@ -70,24 +88,13 @@ $(function () {
    $(document).on('click', 'input[type="checkbox"]', function () {
       let id = $(this).attr('data-id');
       let valor = $(this).attr('data-value');
-      $.post('categoria-status.php', {id, valor}, function (response) {
-         fetchCategorias();
+      $.post(view + '/status.php', {id, valor}, function (response) {
+         fetchAll();
          console.log(response);
       });
    });
 
-   function fetchCategorias() {
-      let perPage = $('ul[data-perPage]').attr('data-perPage');
-      let inicio = $('ul[data-inicio]').attr('data-inicio');
-      $.ajax({
-         url: 'categoria-list.php',
-         data: {perPage, inicio},
-         type: 'POST',
-         success: function (response) {
-            $("#categoria-listagem").html(response);
-         }
-      });
-   }
+   
 
 
 

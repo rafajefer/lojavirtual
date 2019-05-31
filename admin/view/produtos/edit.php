@@ -1,5 +1,5 @@
 <?php
-require_once '../autoload.php';
+require_once '../../../autoload.php';
 
 
 
@@ -19,3 +19,5 @@ if(!empty($_POST['id'])) {
    }
    
 } 
+
+print_r($_POST);

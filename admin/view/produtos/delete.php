@@ -1,8 +1,8 @@
 <?php
 
-require_once '../autoload.php';
+require_once '../../../autoload.php';
 
-if(isset($_POST['id'])) {
+if(!empty($_POST['id'])) {
    $id = addslashes($_POST['id']);
    $obj = new Subcategoria();
    if($obj->delete($id)) {

@@ -1,12 +1,12 @@
-<div data-page="categorias">
-   <h1>Lista de Categoria: </h1>
+<div data-page="produtos">
+   <h1>Lista de Produtos </h1>
    <hr />   
    <div class="d-flex">
       <div>
          <div class="input-group mt-3 mb-3">
             <div class="input-group-prepend">
                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                  Categoria
+                  Produtos
                </button>
                <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Link 1</a>
@@ -33,19 +33,21 @@
             <th class="text-center" width="170">Ação</th>
          </tr>
       </thead>
-      <tbody id="categoria-listagem">
+      <tbody id="listagem">
 
       </tbody>
    </table>
    <?php 
-      // total de categorias cadastradas
-      $total = Categoria::total();
+      require_once '../autoload.php';
+      
+      // total de registros cadastrados
+      $total = Subcategoria::total();
       
       // pega valor $_GET['pagina'] ou seja valor da pagina atual
       $paginaAtual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
       
       // quantidade de registros por pagina
-      $perPage = 2;
+      $perPage = 10;
       
       // total de paginas
       $paginacao = ceil($total / $perPage); // Arredonda pra cima
@@ -62,11 +64,11 @@
    ?>
    <!-- Start .\ Paginação -->
    <ul class="pagination justify-content-end <?php echo $total < $perPage ? 'd-none': '';?>" data-inicio="<?php echo $inicio; ?>" data-perPage="<?php echo $perPage; ?>">
-         <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=categorias&pagina='.$prev;?>">Anterior</a></li>
+         <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$prev;?>">Anterior</a></li>
       <?php for($i=1; $i<=$paginacao; $i++): ?>
-         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=categorias&pagina='.$i;?>"><?php echo $i; ?></a></li>      
+         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$i;?>"><?php echo $i; ?></a></li>      
       <?php endfor; ?>
-         <li class="page-item <?php echo $next > $paginacao ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=categorias&pagina='.$next;?>">Próxima</a></li>
+         <li class="page-item <?php echo $next > $paginacao ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$next;?>">Próxima</a></li>
    </ul>
    <!-- End .\ Paginação -->
    

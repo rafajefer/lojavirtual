@@ -1,9 +1,9 @@
 $(function () {
 
-   console.log("app.subcategoria.js carregada");
+   console.log("app.fabricante.js carregada");
 
    // Pega o nome da page
-   var view = "view/" + $('div[data-page]').attr('data-page'); // Pega o nome da page
+   var view = "view/" + $('div[data-page]').attr('data-page');
    fetchAll();
 
    // Listando os registros por pagina
@@ -19,25 +19,37 @@ $(function () {
          }
       });
    }
-   
+
    // Abre o formulario e adiciona registro   
    $(document).on('click', '#register-add', function () {
       $.ajax({
          url: view + '/form.php',
          type: 'GET',
          success: function (response) {
+
             let modal = $('#myModal');
             modal.find(".modal-header").addClass("bg-info").addClass("text-white");
-            modal.find("h4").text("Adicionar nova subcategoria");
+            modal.find("h4").text("Adicionar novo fabricante");
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
+
+            // Mascara 
+            $('#telefone').blur(function (event) {
+               if ($(this).val().length === 15) { // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+                  $(this).mask('(00) 00000-0009');
+               } else {
+                  $(this).mask('(00) 0000-00009');
+               }
+            });
             modal.modal();
             modal.submit(function () {
-               //e.preventDefault();
                let nome = $('#nome').val();
-               let categoria_id = $('#categoria_id').val();
+               let telefone = $('#telefone').val();
+               let email = $('#email').val();
+               let status = $('#status').is(':checked') ? 1 : 0;
+
                // Salva registro no banco de dados
-               $.post(view + '/add', {nome, categoria_id}, function (data) {
+               $.post(view + '/add', {nome, telefone, email, status}, function (data) {
                   console.log(data);
                });
             });
@@ -57,19 +69,19 @@ $(function () {
          success: function (response) {
             let modal = $('#myModal');
             modal.find(".modal-header").addClass("bg-info").addClass("text-white");
-            modal.find("h4").text("Editar subcategoria");
+            modal.find("h4").text("Editar fabricante");
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function (e) {
-               e.preventDefault();
-               let nome = $('#nome').val();
+            modal.submit(function () {
                let id = $('#id').val();
-               let categoria_id = $('#categoria_id').val();
+               let nome = $('#nome').val();
+               let telefone = $('#telefone').val();
+               let email = $('#email').val();
+               let status = $('#status').is(':checked') ? 1 : 0;
 
                // Altera categoria no banco de dados
-               $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
-                  console.log(data);
+               $.post(view + '/edit', {id, nome, telefone, email, status}, function () {
                   fetchAll();
                });
             });
@@ -78,7 +90,7 @@ $(function () {
       });
    });
 
-   // Deleta registro
+   // Deleta categoria
    $(document).on('click', 'a[data-delete]', function () {
       let id = $(this).attr('data-delete');
       if (confirm('Tem certeza que deseja excluir esse item?')) {
@@ -89,7 +101,7 @@ $(function () {
       }
    });
 
-   // Altera o status do registro para ativo ou inativo
+   // Altera o status da categoria para ativo ou inativo
    $(document).on('click', 'input[type="checkbox"]', function () {
       let id = $(this).attr('data-id');
       let valor = $(this).attr('data-value');
@@ -98,6 +110,8 @@ $(function () {
          console.log(response);
       });
    });
+
+
 
 
 
