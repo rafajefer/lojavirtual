@@ -4,21 +4,6 @@ $(function () {
    
    // Pega o nome da page
    var view = "view/"+$('div[data-page]').attr('data-page');
-   fetchAll();
-   
-   // Listando os registros por pagina
-   function fetchAll() {
-      let perPage = $('ul[data-perPage]').attr('data-perPage');
-      let inicio = $('ul[data-inicio]').attr('data-inicio');
-      $.ajax({
-         url: view + '/list.php',
-         data: {perPage, inicio},
-         type: 'POST',
-         success: function (response) {
-            $("#listagem").html(response);
-         }
-      });
-   }
    
    // Abre o formulario e adiciona registro   
    $(document).on('click', '#register-add', function () {
@@ -77,9 +62,8 @@ $(function () {
    $(document).on('click', 'a[data-delete]', function () {
       let id = $(this).attr('data-delete');
       if (confirm('Tem certeza que deseja excluir esse item?')) {
-         $.post(view + '/delete.php', {id}, function (response) {
-            fetchAll();
-            console.log(response);
+         $.post(view + '/delete.php', {id}, function () {
+            location.reload();
          });
       }
    });
@@ -89,19 +73,17 @@ $(function () {
       let id = $(this).attr('data-id');
       let valor = $(this).attr('data-value');
       $.post(view + '/status.php', {id, valor}, function (response) {
-         fetchAll();
          console.log(response);
       });
    });
-
-   // Pesquisar
-   $(document).on('click', '#btn-search', function() {
-      //e.preventDefault();
-      let search = $('#search').val();
-      $.post(view + '/search.php', {search}, function(response) {
-         console.log(response);
+   
+   // Impede de enviar o formulário caso campo esteja vázio
+   $(document).on('click', '#form-search', function() {
+      $(this).submit(function(e) {
+         if($('#search').val().length < 1) {
+            e.preventDefault();
+         }
       });
    });
-
-
+  
 });

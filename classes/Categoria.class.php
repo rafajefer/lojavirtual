@@ -93,9 +93,9 @@ class Categoria extends Crud {
       return $result;
    }
    
-   public function search($search) {
+   public function search($search, $inicio, $perPage) {
       $result = array();
-      $sql = "SELECT * FROM $this->table WHERE nome LIKE :search";
+      $sql = "SELECT * FROM $this->table  WHERE nome LIKE :search ORDER BY nome LIMIT $perPage, $inicio";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':search', "%$search%");
       $stmt->execute();
@@ -104,11 +104,18 @@ class Categoria extends Crud {
       }
       return $result;      
    }
+   // Retorna total de registro na busca
+   public function total_search($search) {
+      $sql = "SELECT id FROM $this->table  WHERE nome LIKE :search";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':search', "%$search%");
+      $stmt->execute();
+      return $stmt->rowCount();   
+   }
 
 
-   public static function total() {
-      
-      $sql = "SELECT id FROM categoria";
+   public function total() {      
+      $sql = "SELECT id FROM $this->table";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();
