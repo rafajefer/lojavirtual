@@ -61,15 +61,13 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function (e) {
-               e.preventDefault();
+            modal.submit(function () {
                let nome = $('#nome').val();
                let id = $('#id').val();
                let categoria_id = $('#categoria_id').val();
 
                // Altera categoria no banco de dados
                $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
-                  console.log(data);
                   fetchAll();
                });
             });

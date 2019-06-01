@@ -94,8 +94,14 @@ $(function () {
       });
    });
 
-   
-
+   // Pesquisar
+   $(document).on('click', '#btn-search', function() {
+      //e.preventDefault();
+      let search = $('#search').val();
+      $.post(view + '/search.php', {search}, function(response) {
+         console.log(response);
+      });
+   });
 
 
 });

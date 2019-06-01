@@ -28,7 +28,7 @@
       <thead>
          <tr>
             <th>ID</th>
-            <th>Categoria</th>
+            <th>Produto</th>
             <th class="text-center">Ativo</th>
             <th class="text-center" width="170">Ação</th>
          </tr>
@@ -41,7 +41,7 @@
       require_once '../autoload.php';
       
       // total de registros cadastrados
-      $total = Subcategoria::total();
+      $total = Produto::total();
       
       // pega valor $_GET['pagina'] ou seja valor da pagina atual
       $paginaAtual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
@@ -64,11 +64,11 @@
    ?>
    <!-- Start .\ Paginação -->
    <ul class="pagination justify-content-end <?php echo $total < $perPage ? 'd-none': '';?>" data-inicio="<?php echo $inicio; ?>" data-perPage="<?php echo $perPage; ?>">
-         <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$prev;?>">Anterior</a></li>
+         <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=produtos&pagina='.$prev;?>">Anterior</a></li>
       <?php for($i=1; $i<=$paginacao; $i++): ?>
-         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$i;?>"><?php echo $i; ?></a></li>      
+         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=produtos&pagina='.$i;?>"><?php echo $i; ?></a></li>      
       <?php endfor; ?>
-         <li class="page-item <?php echo $next > $paginacao ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=subcategorias&pagina='.$next;?>">Próxima</a></li>
+         <li class="page-item <?php echo $next > $paginacao ? 'disabled': ''; ?>"><a class="page-link" href="<?php echo URL_ADMIN.'index.php?p=produtos&pagina='.$next;?>">Próxima</a></li>
    </ul>
    <!-- End .\ Paginação -->
    

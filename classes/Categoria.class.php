@@ -93,6 +93,19 @@ class Categoria extends Crud {
       return $result;
    }
    
+   public function search($search) {
+      $result = array();
+      $sql = "SELECT * FROM $this->table WHERE nome LIKE :search";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':search', "%$search%");
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
+      }
+      return $result;      
+   }
+
+
    public static function total() {
       
       $sql = "SELECT id FROM categoria";
