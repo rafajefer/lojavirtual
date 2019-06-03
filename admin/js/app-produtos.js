@@ -4,22 +4,7 @@ $(function () {
 
    // Pega o nome da page
    var view = "view/" + $('div[data-page]').attr('data-page'); // Pega o nome da page
-   fetchAll();
-
-   // Listando os registros por pagina
-   function fetchAll() {
-      let perPage = $('ul[data-perPage]').attr('data-perPage');
-      let inicio = $('ul[data-inicio]').attr('data-inicio');
-      $.ajax({
-         url: view + '/list.php',
-         data: {perPage, inicio},
-         type: 'POST',
-         success: function (response) {
-            $("#listagem").html(response);
-         }
-      });
-   }
-   
+      
    // Abre o formulario e adiciona registro   
    $(document).on('click', '#register-add', function () {
       $.ajax({
@@ -32,13 +17,24 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function () {
-               //e.preventDefault();
-               let nome = $('#nome').val();
-               let categoria_id = $('#categoria_id').val();
-               // Salva registro no banco de dados
-               $.post(view + '/add', {nome, categoria_id}, function (data) {
-                  console.log(data);
+            let categoria_selected = modal.find("#categoria_id");
+            // ao seleciona categoria lista as subcategorias referente a categoria selecionada 
+            categoria_selected.change(function() {
+               // Remove as subcategorias que não faz parte da categoria selecionada
+               $("#subcategoria_id option").each(function() {
+                  $(this).remove();
+               });
+               // Guarda o valor id do option selecionado na variabel categoria_id
+               let categoria_id = $(this).val();
+               // faz uma busca, enviando o id do option selecionado
+               $.post(view + '/busca_subcategoria.php', {categoria_id}, function(data) {
+                  // Converte o resultado da busca para json
+                  let obj = JSON.parse(data);
+                  let subcategoria = modal.find("#subcategoria_id");
+                  // add os resultado em option no modal
+                  obj.forEach(function(element) {
+                     $(subcategoria).append("<option value='" + element.id + "'>" + element.nome + "</option>");
+                  });
                });
             });
          }
@@ -61,6 +57,29 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
+            
+            let categoria_selected = modal.find("#categoria_id");
+            // ao seleciona categoria lista as subcategorias referente a categoria selecionada 
+            categoria_selected.change(function() {
+               // Remove as subcategorias que não faz parte da categoria selecionada
+               $("#subcategoria_id option").each(function() {
+                  $(this).remove();
+               });
+               // Guarda o valor id do option selecionado na variabel categoria_id
+               let categoria_id = $(this).val();
+               // faz uma busca, enviando o id do option selecionado
+               $.post(view + '/busca_subcategoria.php', {categoria_id}, function(data) {
+                  // Converte o resultado da busca para json
+                  let obj = JSON.parse(data);
+                  let subcategoria = modal.find("#subcategoria_id");
+                  // add os resultado em option no modal
+                  obj.forEach(function(element) {
+                     $(subcategoria).append("<option value='" + element.id + "'>" + element.nome + "</option>");
+                  });
+               });
+            });
+            
+            /*
             modal.submit(function (e) {
                e.preventDefault();
                let nome = $('#nome').val();
@@ -70,10 +89,9 @@ $(function () {
                // Altera categoria no banco de dados
                $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
                   console.log(data);
-                  fetchAll();
                });
             });
-
+            */
          }
       });
    });
@@ -83,7 +101,7 @@ $(function () {
       let id = $(this).attr('data-delete');
       if (confirm('Tem certeza que deseja excluir esse item?')) {
          $.post(view + '/delete.php', {id}, function (response) {
-            fetchAll();
+            location.reload();
             console.log(response);
          });
       }
@@ -94,7 +112,7 @@ $(function () {
       let id = $(this).attr('data-id');
       let valor = $(this).attr('data-value');
       $.post(view + '/status.php', {id, valor}, function (response) {
-         fetchAll();
+        // location.reload();
          console.log(response);
       });
    });

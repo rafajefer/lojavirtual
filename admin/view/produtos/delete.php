@@ -4,11 +4,11 @@ require_once '../../../autoload.php';
 
 if(!empty($_POST['id'])) {
    $id = addslashes($_POST['id']);
-   $obj = new Subcategoria();
+   $obj = new Produto();
    if($obj->delete($id)) {
-      echo "Subcategoria excluida com Sucesso";
+      echo "Produto excluido com Sucesso";
    } else {
-      echo "Falha ao excluir Subcategoria";
+      echo "Falha ao excluir Produto";
    }
    
 }

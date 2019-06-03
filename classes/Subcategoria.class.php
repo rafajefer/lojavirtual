@@ -34,6 +34,19 @@ class Subcategoria extends Crud {
       }
       return $result;
    }
+   
+   // Busca as subcategorias referente ao categoria_id
+   public function findSubcategoria($categoria_id) {
+      $result = array();
+      $sql = "SELECT * FROM $this->table WHERE categoria_id = :categoria_id ORDER BY nome asc";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':categoria_id', $categoria_id);
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
+      }
+      return $result;
+   }
 
    public function insert($subcategoria, $categoria_id) {
       $sql = "INSERT INTO $this->table (nome, categoria_id) VALUES (:nome, :categoria_id)";
