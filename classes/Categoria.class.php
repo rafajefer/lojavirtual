@@ -104,6 +104,7 @@ class Categoria extends Crud {
       }
       return $result;      
    }
+   
    // Retorna total de registro na busca
    public function total_search($search) {
       $sql = "SELECT id FROM $this->table  WHERE nome LIKE :search";
@@ -113,7 +114,7 @@ class Categoria extends Crud {
       return $stmt->rowCount();   
    }
 
-
+   // Retorna total de registro
    public function total() {      
       $sql = "SELECT id FROM $this->table";
       $stmt = Conexao::prepare($sql);

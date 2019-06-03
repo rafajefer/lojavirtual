@@ -95,12 +95,35 @@ class Subcategoria extends Crud {
       return $result;
    }
    
-   public static function total() {
-      
-      $sql = "SELECT id FROM subcategoria";
+   public function search($search, $inicio, $perPage) {
+      $result = array();
+      $sql = "SELECT * FROM $this->table  WHERE nome LIKE :search ORDER BY nome LIMIT $perPage, $inicio";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':search', "%$search%");
+      $stmt->execute();
+      if($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
+      }
+      return $result;      
+   }
+   
+   // Retorna total de registro na busca
+   public function total_search($search) {
+      $sql = "SELECT id FROM $this->table  WHERE nome LIKE :search";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':search', "%$search%");
+      $stmt->execute();
+      return $stmt->rowCount();
+   }
+
+   // Retorna total de registro
+   public function total() {      
+      $sql = "SELECT id FROM $this->table";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();
    }
+   
+   
 
 }
