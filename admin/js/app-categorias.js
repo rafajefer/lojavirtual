@@ -1,5 +1,4 @@
 $(function () {
-
    console.log("app.categoria.js carregada");
 
    // Pega o nome da page
@@ -21,7 +20,8 @@ $(function () {
                let nome = $('#nome').val();
                // Salva registro no banco de dados
                $.post(view + '/add', {nome: nome}, function (data) {
-                  console.log(data);
+                  swal("Sucesso!", "Categoria adicionada com sucesso!", "success");
+                  data.preventDefault();
                });
             });
          }
@@ -49,8 +49,7 @@ $(function () {
                let id = $('#id').val();
 
                // Altera categoria no banco de dados
-               $.post(view + '/edit', {nome: nome, id: id}, function (data) {
-                  fetchAll();
+               $.post(view + '/edit', {nome: nome, id: id}, function () {
                });
             });
 
@@ -60,12 +59,26 @@ $(function () {
 
    // Deleta categoria
    $(document).on('click', 'a[data-delete]', function () {
-      let id = $(this).attr('data-delete');
-      if (confirm('Tem certeza que deseja excluir esse item?')) {
-         $.post(view + '/delete.php', {id}, function () {
-            location.reload();
-         });
-      }
+      // Alert com plugin sweetalert
+      swal({
+         title: "Excluir",
+         text: "Tem certeza que deseja excluir esse item?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true
+      }).then((willDelete) => {
+         if (willDelete) {
+            let id = $(this).attr('data-delete');
+            $.post(view + '/delete.php', {id}, function (data) {
+
+               let obj = JSON.parse(data);
+               swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {
+                  location.reload();
+               });
+
+            });
+         }
+      });
    });
 
    // Altera o status da categoria para ativo ou inativo
