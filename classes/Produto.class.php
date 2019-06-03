@@ -10,7 +10,7 @@ class Produto extends Crud {
 
    private $table = 'produto';
 
-   // Lista 1 produto pelo id
+   // Lista registro pelo id
    public function find($id) {
       $result = array();
       $sql = "SELECT * FROM {$this->table} WHERE id = :id";
@@ -22,8 +22,8 @@ class Produto extends Crud {
       }
       return $result;
    }
-   
-   // Lista todos os produtos
+
+   // Lista todos os registros
    public function findAll() {
       $result = array();
       $sql = "SELECT * FROM {$this->table} ORDER BY nome asc";
@@ -35,7 +35,7 @@ class Produto extends Crud {
       return $result;
    }
 
-   // Insere novo produto na tabela
+   // Adiciona um novo registro na tabela
    public function insert($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque) {
       $sql = "INSERT INTO $this->table (categoria_id, subcategoria_id, fabricante_id, nome, preco_alto, preco, descricao, detalhes, status, thumbnail, destaque) "
               . "VALUES (:categoria_id, :subcategoria_id, :fabricante_id, :nome, :preco_alto, :preco, :descricao, :detalhes, :status, :thumbnail, :destaque)";
@@ -57,8 +57,8 @@ class Produto extends Crud {
       }
       return false;
    }
-   
-   // Exclui produto da tabela
+
+   // Exclui registro da tabela
    public function delete($id) {
       $sql = "DELETE FROM $this->table WHERE id = :id";
       $stmt = Conexao::prepare($sql);
@@ -70,7 +70,7 @@ class Produto extends Crud {
       return false;
    }
 
-   // Atualiza dados do produto na tabela
+   // Atualiza registro na tabela
    public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque) {
       $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, thumbnail = ?, destaque = ? WHERE id = ?";
       $stmt = Conexao::prepare($sql);
@@ -80,8 +80,8 @@ class Produto extends Crud {
       }
       return false;
    }
-   
-   // Altera status do produto para ativo ou inativo
+
+   // Altera status do registro para ativo ou inativo
    public function status($id, $valor) {
       $sql = "UPDATE $this->table SET status = :status WHERE id = :id";
       $stmt = Conexao::prepare($sql);
@@ -93,8 +93,8 @@ class Produto extends Crud {
       }
       return false;
    }
-   
-   // Lista produtos por paginas
+
+   // Lista todos os registros por pagina
    public function paginacao($inicio, $perPage) {
       $result = array();
       $sql = "SELECT * FROM $this->table ORDER BY nome LIMIT $perPage, $inicio ";
@@ -105,8 +105,8 @@ class Produto extends Crud {
       }
       return $result;
    }
-   
-   // Pesquisa produto na tabela
+
+   // Pesquisa registro na tabela
    public function search($search, $inicio, $perPage) {
       $result = array();
       $sql = "SELECT * FROM $this->table  WHERE nome LIKE :search ORDER BY nome LIMIT $perPage, $inicio";
@@ -128,9 +128,10 @@ class Produto extends Crud {
       return $stmt->rowCount();
    }
 
+   // Retorna total de registros cadastrados
    public static function total() {
 
-      $sql = "SELECT id FROM produto";
+      $sql = "SELECT id FROM $this->table";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();
