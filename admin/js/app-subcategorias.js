@@ -61,14 +61,28 @@ $(function () {
       });
    });
 
-   // Deleta registro
+  // Deleta registro
    $(document).on('click', 'a[data-delete]', function () {
-      let id = $(this).attr('data-delete');
-      if (confirm('Tem certeza que deseja excluir esse item?')) {
-         $.post(view + '/delete.php', {id}, function () {
-            location.reload();
-         });
-      }
+      // Alert com plugin sweetalert
+      swal({
+         title: "Excluir",
+         text: "Tem certeza que deseja excluir esse item?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true
+      }).then((willDelete) => {
+         if (willDelete) {
+            let id = $(this).attr('data-delete');
+            $.post(view + '/delete.php', {id}, function (data) {
+
+               let obj = JSON.parse(data);
+               swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {
+                  location.reload();
+               });
+
+            });
+         }
+      });
    });
 
    // Altera o status do registro para ativo ou inativo

@@ -8,7 +8,7 @@ $total = $objeto->total();
 $paginaAtual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
 
 // quantidade de registros por pagina
-$perPage = 3;
+$perPage = 10;
 
 // total de paginas
 $paginacao = ceil($total / $perPage); // Arredonda pra cima

@@ -5,10 +5,18 @@ require_once '../../../autoload.php';
 if(!empty($_POST['id'])) {
    $id = intval(($_POST['id']));
    $obj = new Fabricante();
-   if($obj->delete($id)) {
-      echo "Fabricante excluida com Sucesso";
+   // Verifica se existe um registro com esse id
+   if ($obj->find($id)) {
+      if ($obj->delete($id)) {
+         $json = array("icon" => "success", "title" => "Sucesso!", "text" => "A categoria selecionada foi excluida com Sucesso!");
+      } else {
+         $json = array("icon" => "error", "title" => "Erro!", "text" => "Falha ao excluir categoria");
+      }
    } else {
-      echo "Falha ao excluir fabricante";
-   }
-   
+      $json = array("icon" => "error", "title" => "Error!", "text" => "Nenhum registro encontrado!");
+   }   
 }
+
+$jsonString = json_encode($json);
+
+echo $jsonString;

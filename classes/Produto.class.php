@@ -129,7 +129,7 @@ class Produto extends Crud {
    }
 
    // Retorna total de registros cadastrados
-   public static function total() {
+   public function total() {
 
       $sql = "SELECT id FROM $this->table";
       $stmt = Conexao::prepare($sql);
