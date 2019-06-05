@@ -98,7 +98,7 @@ if (!empty($_GET['search'])) {
       </table>
 
    </div>
-   <?php print_r($_POST);?>
+   
    <!-- Start .\ Paginação -->
    <ul class="pagination justify-content-end mt-3 <?php echo $total < $perPage ? 'd-none' : ''; ?>" data-inicio="<?php echo $inicio; ?>" data-perPage="<?php echo $perPage; ?>">
       <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao . '&pagina=' . $prev; ?>">Anterior</a></li>

@@ -2,7 +2,7 @@
 require_once '../../../autoload.php';
 
 if (!empty($_POST['id'])) {
-   $id = addslashes($_POST['id']);
+   $id = intval($_POST['id']);
    $obj = new Categoria();
    $objeto = $obj->find($id);
 }

@@ -2,7 +2,7 @@
 require_once '../../../autoload.php';
 
 if (!empty($_POST['id'])) :
-   $id = (int) $_POST['id'];
+   $id = intval($_POST['id']);
    $objeto = new Produto();
    $obj = $objeto->find($id);
 

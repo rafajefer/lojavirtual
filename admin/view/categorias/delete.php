@@ -4,7 +4,7 @@ require_once '../../../autoload.php';
 
 if (!empty($_POST['id'])) {
    
-   $id = addslashes($_POST['id']);
+   $id = intval($_POST['id']);
    $obj = new Categoria();
    // Verifica se existe um registro com esse id
    if ($obj->find($id)) {
