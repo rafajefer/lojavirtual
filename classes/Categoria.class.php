@@ -10,11 +10,15 @@ class Categoria extends Crud {
 
    private $table = 'categoria';
 
-   public function find($id) {
+   public function find($value) {
       $result = array();
-      $sql = "SELECT id, nome FROM {$this->table} WHERE id = :id";
+      if (is_int($value)) {
+         $sql = "SELECT id, nome FROM $this->table WHERE id = :value";
+      } else {
+         $sql = "SELECT id, nome FROM $this->table WHERE nome = :value";
+      }
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':id', $id);
+      $stmt->bindValue(':value', $value);
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
          $result = $stmt->fetch();

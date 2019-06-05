@@ -48,6 +48,19 @@ class Produto extends Crud {
       return $result;
    }
    
+    // Busca todos os produtos que estiver na subcategoria informada
+   public function getProdutos($value) {
+      $result = array();
+      $sql = "SELECT p.id, p.subcategoria_id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as cat_nome, s.nome as subcat_nome FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.subcategoria_id = :value LIMIT 3";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':value', $value);
+      $stmt->execute();
+      if ($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
+      }
+      return $result;
+   }
+   
    public function getDestaque() {
       $result = array();
       $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 LIMIT 3";

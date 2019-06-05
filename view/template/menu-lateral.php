@@ -11,7 +11,7 @@
          <h2><a href="#"><?php echo $categoria->nome; ?></a></h2>    
          <?php 
             foreach ($sub->getSubcategoriasAtivas($categoria->id) as $subcategoria) :
-               echo "<li><a href='#'>$subcategoria->nome </a></li>";
+               echo "<li><a href='categoria/$subcategoria->nome'>$subcategoria->nome </a></li>";
             endforeach;
             
          ?>
