@@ -11,7 +11,9 @@ if(!empty($_POST['id'])) {
    $obj = new Categoria();
    
    if($obj->status($id, $valor)) {
-      echo "Status da categoria alterado com Sucesso";
+      //echo "Status da categoria alterado com Sucesso";
+      $json = json_encode([$id, $valor]);
+      echo $json;
    } else {
       echo "Falha ao alterar status da categoria";
    }

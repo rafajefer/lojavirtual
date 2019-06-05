@@ -35,66 +35,80 @@ if (!empty($_GET['search'])) {
 }
 ?>
 <div data-page="fabricantes">
-   <h1>Lista de Fabricantes: </h1>
-   <hr />   
-   <div class="d-flex">
-      <div>
+   <h1>Lista de fabricantes</h1>
+   <div class="base-lista">
+      <div class="cx-lista">
          <form method="GET" action="index.php" id="form-search">
-            <input type="hidden" name="p" value="fabricantes" /> 
-            <div class="input-group mt-3 mb-3">
-               <input type="text" class="form-control" placeholder="Pesquisar por..." name="search" id="search" value="<?php echo @$search?>" />
-               <div class="input-group-append">
-                  <button class="btn btn-success" type="submit">Buscar</button> 
-               </div>
-            </div>
-         </form>
-      </div>
-      <div class="ml-auto">
-         <button type="button" class="btn btn-primary mt-3 mb-3" id="register-add">Adicionar</button>
-      </div>
-   </div>
-   <table class="table table-striped mt-3">
-      <thead>
-         <tr>
-            <th>ID</th>
-            <th>Fabricante</th>
-            <th class="text-center">Ativo</th>
-            <th class="text-center" width="170">Ação</th>
-         </tr>
-      </thead>
-      <tbody id="listagem">
-   <?php
-         
-         foreach ($listagem as $row):
-            ?>
+            <input type="hidden" name="p" value="fabricantes" />
+            <table border="0">
+               <tbody>
+                  <tr>
+                     <th width="16%"><strong>Buscar:</strong></th>
+                     <th width="60%"><input type="text" name="search" id="search" value="<?php echo @$search ?>" /></th>
+                     <th>
+                        <select name="campo">                            
+                           <option value="fabricantes">Fabricantes</option>           
+                           <option value="ativo_fabricante">Ativo (S ou N)</option>                            
+                        </select>
+                     </th>
+                     <th><input type="submit" class="but" value=""  /></th>
+                  </tr>
+               </tbody>
+            </table>
+         </form>                 
+
+      </div>      
+
+      <h2>Lista de fabricantes</h2>
+      <a href="#" id="register-add">Cadastrar fabricante </a>
+      <p class="limpar">&nbsp;</p>
+
+
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+         <thead>
             <tr>
-               <td><?php echo $row->id; ?></td>
-               <td><?php echo $row->nome; ?></td>
-               <td class="text-center">
-                  <div class="custom-control custom-switch ">
-                     <input type="checkbox" class="custom-control-input" id="switch<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" data-value="<?php echo $row->status; ?>" <?php echo $row->status == true ? 'checked' : ''; ?>>
-                     <label class="custom-control-label" for="switch<?php echo $row->id; ?>"></label>
-                  </div>
-               </td>
-               <td class="text-center">
-                  <a href="#" class="btn btn-success" data-edit="<?php echo $row->id; ?>">Editar</a>
-                  <a href="#" class="btn btn-danger" data-delete="<?php echo $row->id; ?>">Excluir</a>
-               </td>
+               <td align="center" class="tdbc" width="60">ID</td>
+               <td align="center" class="tdbc">Fabricante</td>
+               <td align="center" class="tdbc"  width="60">Ativo</td>
+               <td align="center" class="tdbc"  width="160">Ação</td>
             </tr>
-         <?php endforeach; ?>
-      </tbody>
-   </table>
+         </thead>
+         <tbody id="listagem">
+            <?php
+            $striped = 'coluna1';
+            foreach ($listagem as $row):
+               ?>
+               <tr class="<?php echo $striped; ?>">
+                  <td align="center"><?php echo $row->id; ?></td>
+                  <td><?php echo $row->nome; ?></td>
+                  <td class="text-center">
+                     <div class="custom-control custom-switch ">
+                        <input type="checkbox" class="custom-control-input" id="switch<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" data-value="<?php echo $row->status; ?>" <?php echo $row->status == true ? 'checked' : ''; ?>>
+                        <label class="custom-control-label" for="switch<?php echo $row->id; ?>"></label>
+                     </div>
+                  </td>
+                  <td class="text-center">
+                     <a href="#" data-edit="<?php echo $row->id; ?>">Editar</a>
+                     <a href="#" class="excluir" data-delete="<?php echo $row->id; ?>">Excluir</a>
+                  </td>
+               </tr>
+               <?php $striped = $striped == 'coluna1' ? 'coluna2' : 'coluna1'; ?>
+            <?php endforeach; ?>	
+         </tbody>
+      </table>
+
+   </div>
 
    <!-- Start .\ Paginação -->
-   <ul class="pagination justify-content-end <?php echo $total < $perPage ? 'd-none' : ''; ?>" data-inicio="<?php echo $inicio; ?>" data-perPage="<?php echo $perPage; ?>">
-      <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao.'&pagina=' . $prev; ?>">Anterior</a></li>
+   <ul class="pagination justify-content-end mt-3 <?php echo $total < $perPage ? 'd-none' : ''; ?>" data-inicio="<?php echo $inicio; ?>" data-perPage="<?php echo $perPage; ?>">
+      <li class="page-item <?php echo $paginaAtual < 2 ? 'disabled' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao . '&pagina=' . $prev; ?>">Anterior</a></li>
       <?php for ($i = 1; $i <= $paginacao; $i++): ?>
-         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao.'&pagina=' . $i; ?>"><?php echo $i; ?></a></li>      
+         <li class="page-item <?php echo $paginaAtual == $i ? 'active' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao . '&pagina=' . $i; ?>"><?php echo $i; ?></a></li>      
       <?php endfor; ?>
-      <li class="page-item <?php echo $next > $paginacao ? 'disabled' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao.'&pagina=' . $next; ?>">Próxima</a></li>
+      <li class="page-item <?php echo $next > $paginacao ? 'disabled' : ''; ?>"><a class="page-link" href="<?php echo $url_paginacao . '&pagina=' . $next; ?>">Próxima</a></li>
    </ul>
    <!-- End .\ Paginação -->
-   
+
    <!-- The Modal -->
    <div class="modal fade" id="myModal" tabindex="-1">
       <div class="modal-dialog modal-lg">

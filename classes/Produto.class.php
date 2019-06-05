@@ -13,7 +13,7 @@ class Produto extends Crud {
    // Lista registro pelo id
    public function find($id) {
       $result = array();
-      $sql = "SELECT * FROM {$this->table} WHERE id = :id";
+      $sql = "SELECT * FROM $this->table WHERE id = :id";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':id', $id);
       $stmt->execute();
@@ -31,6 +31,19 @@ class Produto extends Crud {
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
          $result = $stmt->fetchAll();
+      }
+      return $result;
+   }
+   
+   // Busca o produto
+   public function getProduto($id) {
+      $result = array();
+      $sql = "SELECT * FROM $this->table INNER JOIN categoria ON categoria.id = $this->table.categoria_id WHERE id = :id";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':id', $id);
+      $stmt->execute();
+      if ($stmt->rowCount() > 0) {
+         $result = $stmt->fetch();
       }
       return $result;
    }
