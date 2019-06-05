@@ -63,7 +63,7 @@ class Produto extends Crud {
    
    public function getDestaque() {
       $result = array();
-      $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 LIMIT 3";
+      $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 ORDER BY updated_at DESC LIMIT 3";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
@@ -108,10 +108,10 @@ class Produto extends Crud {
    }
 
    // Atualiza registro na tabela
-   public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque) {
-      $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, thumbnail = ?, destaque = ? WHERE id = ?";
+   public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque) {
+      $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, destaque = ? WHERE id = ?";
       $stmt = Conexao::prepare($sql);
-      $stmt->execute(array($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque, $id));
+      $stmt->execute(array($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, $id));
       if ($stmt->rowCount() > 0) {
          return true;
       }

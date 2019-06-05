@@ -19,6 +19,13 @@ if (!empty($_POST['id'])) :
 <form method="POST" action="view/produtos/edit.php">
    <input type="hidden" name="id" value="<?php echo $id; ?>" />
    <div class="row">
+      <div class="col-md-3">
+         <figure>
+            <img src="<?php echo $obj->thumbnail; ?>" width="100px" />
+         </figure>
+      </div>
+   </div>
+   <div class="row">
       <div class="col-md-8">
          <label for="produto">Produto</label>
          <div class="form-group">
@@ -87,8 +94,8 @@ if (!empty($_POST['id'])) :
    <div class="row">
       <div class="col-md-8">
          <div class="custom-file mt-3">
-            <input type="file" class="custom-file-input" id="imagem" name="imagem" value="teste.jpg">
-            <label class="custom-file-label" for="customFile">Imagem do produto</label>
+            <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail" value="<?php echo $obj->thumbnail; ?>">
+            <label class="custom-file-label" for="thumbnail">Imagem do produto</label>
          </div>
       </div>
       <div class="col-md-2">
