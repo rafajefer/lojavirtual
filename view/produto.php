@@ -2,33 +2,22 @@
    $produto_id = intval($page[1]);
    
    $prod = new Produto();
-   $cat = new Categoria();
-   $sub = new Subcategoria();
-   $fab = new Fabricante();
-   
-   $produto = $prod->find($produto_id);
-   $categoria = $cat->find($produto->categoria_id);
-   $subcategoria = $sub->find($produto->subcategoria_id);
-   $fabricante = $fab->find($produto->fabricante_id);
-   
-   echo "<pre>";
-   print_r($categoria);
-   echo "</pre>";
+   $produto = $prod->getProduto($produto_id);   
 ?>
 <div class="conteudo margin-topo">
 	<!-- menu lateral-->
 	<?php require_once './view/template/menu-lateral.php'; ?>
 	
 	<div class="lado-dir">
-	<title class="migalha">Loja Virtual / <?php echo $categoria->id; ?> / HP Deskjet 6870</title>
+	<title class="migalha">Loja Virtual / <?php echo $produto->cat_nome; ?> / <?php echo $produto->subcat_nome; ?></title>
 		<div class="base-detalhes">
 		
-			<div class="imagem"><img src="<?php echo URL_BASE ?>assets/imagens/produtos/smartphone_samsung.jpg"></div>
+			<div class="imagem"><img src="<?php echo $produto->thumbnail; ?>"></div>
 			<div class="cx-opcoes">
-				<h3>produto</h3>
+				<h3><?php echo $produto->nome; ?></h3>
 				<div class="cx-preco">
-					<span class="preco-antigo">de R$ 1046.94</span> <span class="desconto">por apenas</span>
-					<h2>R$ 900.00</h2>
+					<span class="preco-antigo">de R$ <?php echo $produto->preco_alto; ?></span> <span class="desconto">por apenas</span>
+					<h2>R$ <?php echo $produto->preco; ?></h2>
 					<span>em até 10x nos cratões</span>
 					<i class="bandeiras"></i>
 				</div>
@@ -52,30 +41,17 @@
 
 			<ul id="conteudos" class="descricao">				
 				<li id="aba1">
-					<strong>HP Deskjet 6870</strong>
-					<p>Lorem Ipsum é simplesmente texto aleatório da indústria tipográfica e de impressão. Lorem Ipsum tem sido texto fictício padrão da indústria desde os anos 1500, quando um desconhecido impressora teve um tipo de cozinha e mexidos-lo para fazer um espécime de livro. Ele não só sobreviveu cinco séculos, mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 1960 com o lançamento de folhas de Letraset contendo passagens Lorem Ipsum, e mais recentemente com software de editoração eletrônica como Aldus PageMaker, incluindo versões do Lorem Ipsum.</p>
-					<strong>Algum titulo aqui</strong>
-					<p>Lorem Ipsum é simplesmente texto aleatório da indústria tipográfica e de impressão. Lorem Ipsum tem sido texto fictício padrão da indústria desde os anos 1500, quando um desconhecido impressora teve um tipo de cozinha e mexidos-lo para fazer um espécime de livro. Ele não só sobreviveu cinco séculos, mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 1960 com o lançamento de folhas de Letraset contendo passagens Lorem Ipsum, e mais recentemente com software de editoração eletrônica como Aldus PageMaker, incluindo versões do Lorem Ipsum.</p>
-					<p></p>
-					<p>Lorem Ipsum tem sido texto fictício padrão da indústria desde os anos 1500, quando um desconhecido impressora teve um tipo de cozinha e mexidos-lo para fazer um espécime de livro. Ele não só sobreviveu cinco séculos, mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 1960 com o lançamento de folhas de Letraset contendo passagens Lorem Ipsum, e mais recentemente com software de editoração eletrônica como Aldus PageMaker, incluindo versões do Lorem Ipsum.</p>
-				
+					<?php echo $produto->descricao; ?>
 				</li>
 				
 				<li id="aba2">
-				<strong>HP Deskjet 6870</strong>
-				<p>Lorem Ipsum é simplesmente texto aleatório da indústria tipográfica e de impressão. Lorem Ipsum tem sido texto fictício padrão da indústria desde os anos 1500, quando um desconhecido impressora teve um tipo de </p>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
-				<ol>HP Deskjet 6870</ol>
+               <?php echo $produto->detalhes; ?>
 				</li>	
 				
 				<li id="aba3">
 				<div class="descricao">
 				<strong>Fotos do produto</strong>
+            
 				<div class="fotos">
 					<img src="<?php echo URL_BASE ?>assets/imagens/produtos/smartphone_samsung.jpg">
 				</div>

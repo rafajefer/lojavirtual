@@ -26,64 +26,32 @@
    </div>
 </div>
 
-<!--mais vendidos-->
-
+<!-- Start .\ produtos em detasque -->
 <div class="conteudo">	
    <div class="base-maisvendido">
       <h1><span>Destaques</span></h1>
+      <?php $prod = new Produto(); ?>
+      <?php foreach ($prod->getDestaque() as $destaque): ?>
+         <div class="cx-maisvendido">
+            <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=2"><img src="<?php echo $destaque->thumbnail; ?>"></a></div>
+            <div class="del">
+               <h2><a href="<?php echo URL_BASE ?>produto/&p=2"><?php echo mb_strimwidth($destaque->nome, 0, 50, "..."); ?></a></h2>
+               <div class="prc-ant">De <small> R$ <?php echo $destaque->preco_alto; ?></small><font> Por</font></div>
+               <span>R$ <?php echo $destaque->preco; ?></span>
+               <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
+                  <input name="txt_preco" 	type="hidden" id="txt_preco" value = "9000.00" />
+                  <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
+                  <input type="hidden" 		name="id_produto" value = "<?php echo $destaque->id; ?>"/>
+                  <input type="submit" 		name="imageField" class="comprar" value="Comprar"  />
+               </form>
+               <div class="cx-frete"><b class="frete">FRETE</b><b class="val-frete">GRÁTIS</b></div>
 
-      <div class="cx-maisvendido">
-         <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=2"><img src="<?php echo URL_BASE ?>assets/imagens/produtos/motog3g.jpg"></a></div>
-         <div class="del">
-            <h2><a href="<?php echo URL_BASE ?>produto/&p=2">Smartphone Motorola Moto G 3ª Geração...</a></h2>
-            <div class="prc-ant">De <small> R$ 10460.94</small><font> Por</font></div>
-            <span>R$ 9000.00</span>
-            <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
-               <input name="txt_preco" 	type="hidden" id="txt_preco" value = "9000.00" />
-               <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
-               <input type="hidden" 		name="id_produto" value = "2"/>
-               <input type="submit" 		name="imageField" class="comprar" value="Comprar"  />
-            </form>
-            <div class="cx-frete"><b class="frete">FRETE</b><b class="val-frete">GRÁTIS</b></div>
-
+            </div>
          </div>
-      </div>
-
-      <div class="cx-maisvendido">
-         <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=4"><img src="<?php echo URL_BASE ?>assets/imagens/produtos/core_I7.jpg"></a></div>
-         <div class="del">
-            <h2><a href="<?php echo URL_BASE ?>produto/&p=4">Processador Intel Core i7-4790K  Haswell...</a></h2>
-            <div class="prc-ant">De <small> R$ 20235.18</small><font> Por</font></div>
-            <span>R$ 9000.00</span>
-            <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
-               <input name="txt_preco" 	type="hidden" id="txt_preco" value = "9000.00" />
-               <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
-               <input type="hidden" 		name="id_produto" value = "4"/>
-               <input type="submit" 		name="imageField" class="comprar" value="Comprar"  />
-            </form>
-            <div class="cx-frete"><b class="frete">FRETE</b><b class="val-frete">GRÁTIS</b></div>
-
-         </div>
-      </div>
-
-      <div class="cx-maisvendido">
-         <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=10"><img src="<?php echo URL_BASE ?>assets/imagens/produtos/joystick.jpg"></a></div>
-         <div class="del">
-            <h2><a href="<?php echo URL_BASE ?>produto/&p=10">Controle Dazz Dualshock Bluetooth PS3 Pr...</a></h2>
-            <div class="prc-ant">De <small> R$ 5046.94</small><font> Por</font></div>
-            <span>R$ 5000.00</span>
-            <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
-               <input name="txt_preco" 	type="hidden" id="txt_preco" value = "5000.00" />
-               <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
-               <input type="hidden" 		name="id_produto" value = "10"/>
-               <input type="submit" 		name="imageField" class="comprar" value="Comprar"  />
-            </form>
-            <div class="cx-frete"><b class="frete">FRETE</b><b class="val-frete">GRÁTIS</b></div>
-
-         </div>
-      </div>
+      <?php endforeach; ?>
    </div>
 </div>
+<!-- End .\ produto destaque -->
 
 <div class="conteudo">
    <?php include"./view/template/menu-lateral.php" ?>	

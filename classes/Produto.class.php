@@ -38,12 +38,23 @@ class Produto extends Crud {
    // Busca o produto
    public function getProduto($id) {
       $result = array();
-      $sql = "SELECT * FROM $this->table INNER JOIN categoria ON categoria.id = $this->table.categoria_id WHERE id = :id";
+      $sql = "SELECT p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as cat_nome, s.nome as subcat_nome FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.id = :id";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':id', $id);
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
          $result = $stmt->fetch();
+      }
+      return $result;
+   }
+   
+   public function getDestaque() {
+      $result = array();
+      $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 LIMIT 3";
+      $stmt = Conexao::prepare($sql);
+      $stmt->execute();
+      if ($stmt->rowCount() > 0) {
+         $result = $stmt->fetchAll();
       }
       return $result;
    }
@@ -148,6 +159,7 @@ class Produto extends Crud {
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
       return $stmt->rowCount();
-   }
+   }   
+   
 
 }
