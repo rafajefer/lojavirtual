@@ -9,12 +9,12 @@ if (!empty($_POST['id'])) {
    // Verifica se existe um registro com esse id
    if ($obj->find($id)) {
       if ($obj->delete($id)) {
-         $json = array("icon" => "success", "title" => "Sucesso!", "text" => "A categoria selecionada foi excluida com Sucesso!");
+         $json = array("icon" => "success", "title" => "Sucesso!", "text" => "A categoria selecionada foi excluída com Sucesso!");
       } else {
          $json = array("icon" => "error", "title" => "Erro!", "text" => "Falha ao excluir categoria");
       }
    } else {
-      $json = array("icon" => "error", "title" => "Error!", "text" => "Nenhum registro encontrado!");
+      $json = array("icon" => "error", "title" => "Erro!", "text" => "Nenhum registro encontrado!");
    }
 }
 

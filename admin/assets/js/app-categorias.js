@@ -6,6 +6,7 @@ $(function () {
 
    // Abre o formulario e adiciona registro   
    $(document).on('click', '#register-add', function () {
+      // open form
       $.ajax({
          url: view + '/form.php',
          type: 'GET',
@@ -16,13 +17,30 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function () {
-               let nome = $('#nome').val();
-               let status = $('#status').is(':checked') ? 1 : 0;
-               // Salva registro no banco de dados
-               $.post(view + '/add', {nome, status}, function (data) {
-                  swal("Sucesso!", "Categoria adicionada com sucesso!", "success");
-                  data.preventDefault();
+            // Exibe o form
+            $(modal).on('shown.bs.modal', function() {
+               // Foca o input
+               $(this).find('#nome').focus();
+               // Ao enviar o form
+               $(this).submit(function (e) {
+                  e.preventDefault();
+                  let nome = $('#nome').val();
+                  let status = $('#status').is(':checked') ? 1 : 0;
+                  // Salva registro no banco de dados
+                  $.post(view + '/add', {nome, status}, function (data) {  
+                     let obj = JSON.parse(data);
+                     if (obj.icon === 'error') { 
+                        swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {                           
+                           modal.find('#nome').focus();
+                        });
+                     }
+                      else {
+                         swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {  
+                           modal.hide();
+                           location.reload();
+                        });
+                      }                     
+                  });
                });
             });
          }
@@ -91,7 +109,7 @@ $(function () {
          let obj = JSON.parse(response);
          let id = obj[0];
          let status = obj[1];
-         $.post(view+'/index.php', {id, status}, function() {
+         $.post(view + '/index.php', {id, status}, function () {
             console.log(obj);
          });
          console.log(response);

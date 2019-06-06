@@ -36,7 +36,19 @@ class Categoria extends Crud {
       }
       return $result;
    }
-
+   
+   // Verifica se existe uma categoria com o $nome
+   public function existencia($nome) {
+      $sql = "SELECT * FROM $this->table WHERE nome = :nome";
+      $stmt = Conexao::prepare($sql);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->execute();
+      if ($stmt->rowCount() > 0) {
+         return true;
+      }
+      return false;
+   }
+   // Busca todas as categorias com status true
    public function getCategoriasAtivas() {
       $result = array();
       $sql = "SELECT * FROM $this->table WHERE status = 1 ORDER BY nome ASC";
@@ -47,10 +59,9 @@ class Categoria extends Crud {
       }
       return $result;
    }
-
+   // Busca todas categorias e subcategorias
    public function getSubcategorias() {
       $result = array();
-      //$sql = "SELECT * FROM categoria INNER JOIN subcategoria ON categoria.id = subcategoria.categoria_id WHERE categoria.status = 1 AND subcategoria.status = 1 ORDER BY categoria.nome, subcategoria.nome";
       $sql = "SELECT c.id as c_id, c.nome as c_nome, s.id as s_id, s.nome as s_nome FROM categoria as c INNER JOIN subcategoria as s ON c.id = s.categoria_id WHERE c.status = 1 AND s.status = 1 ORDER BY c.nome, s.nome";
       $stmt = Conexao::prepare($sql);
       $stmt->execute();
