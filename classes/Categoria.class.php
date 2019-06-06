@@ -10,6 +10,7 @@ class Categoria extends Crud {
 
    private $table = 'categoria';
 
+   // Busca registro pelo id ou nome
    public function find($value) {
       $result = array();
       if (is_int($value)) {
@@ -26,6 +27,7 @@ class Categoria extends Crud {
       return $result;
    }
 
+   // Busca todos os registros na tabela
    public function findAll() {
       $result = array();
       $sql = "SELECT * FROM $this->table ORDER BY nome asc";
@@ -36,18 +38,25 @@ class Categoria extends Crud {
       }
       return $result;
    }
-   
+
    // Verifica se existe uma categoria com o $nome
-   public function existencia($nome) {
+   public function existencia($nome, $id = null) {
       $sql = "SELECT * FROM $this->table WHERE nome = :nome";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':nome', $nome);
       $stmt->execute();
+      // caso exista
       if ($stmt->rowCount() > 0) {
-         return true;
+         $data = $stmt->fetch();
+         // verifica se id do registro localizado é diferente do que está sendo editado
+         if ($data->id != $id) {
+            return true;
+         }
+         return false;
       }
       return false;
    }
+
    // Busca todas as categorias com status true
    public function getCategoriasAtivas() {
       $result = array();
@@ -59,6 +68,7 @@ class Categoria extends Crud {
       }
       return $result;
    }
+
    // Busca todas categorias e subcategorias
    public function getSubcategorias() {
       $result = array();
@@ -70,7 +80,7 @@ class Categoria extends Crud {
       }
       return $result;
    }
-
+   // Adicionar um novo registro na tabela
    public function insert($nome, $status) {
       $sql = "INSERT INTO $this->table (nome, status, slug) VALUES (:nome, :status, :slug)";
       $stmt = Conexao::prepare($sql);
@@ -83,7 +93,8 @@ class Categoria extends Crud {
       }
       return false;
    }
-
+   
+   // Exclui um registro na tabela pelo id
    public function delete($id) {
       $sql = "DELETE FROM $this->table WHERE id = :id";
       $stmt = Conexao::prepare($sql);
@@ -94,7 +105,8 @@ class Categoria extends Crud {
       }
       return false;
    }
-
+   
+   // Edita um registro na tabela pelo id
    public function update($id, $nome, $status) {
       $sql = "UPDATE $this->table SET nome = :nome, status = :status, slug = :slug WHERE id = :id";
       $stmt = Conexao::prepare($sql);
@@ -108,7 +120,8 @@ class Categoria extends Crud {
       }
       return false;
    }
-
+   
+   // Altera o status para ativa ou inativo do registro
    public function status($id, $valor) {
       $sql = "UPDATE $this->table SET status = :status WHERE id = :id";
       $stmt = Conexao::prepare($sql);
@@ -120,7 +133,8 @@ class Categoria extends Crud {
       }
       return false;
    }
-
+   
+   // Retorna os registro em paginacao de acordo com o LIMIT
    public function paginacao($inicio, $perPage) {
       $result = array();
       $sql = "SELECT * FROM $this->table ORDER BY nome LIMIT $perPage, $inicio ";
@@ -131,7 +145,8 @@ class Categoria extends Crud {
       }
       return $result;
    }
-
+   
+   // Retorna os registro pesquisados em paginacao de acordo com o LIMIT
    public function search($search, $inicio, $perPage) {
       $result = array();
       $sql = "SELECT * FROM $this->table  WHERE nome LIKE :search ORDER BY nome LIMIT $perPage, $inicio";

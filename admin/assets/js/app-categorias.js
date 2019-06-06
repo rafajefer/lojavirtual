@@ -63,16 +63,34 @@ $(function () {
             modal.find('.modal-body').html(response);
             modal.find('.modal-footer').hide();
             modal.modal();
-            modal.submit(function () {
-               let nome = $('#nome').val();
-               let id = $('#id').val();
-               let status = $('#status').is(':checked') ? 1 : 0;
-
-               // Altera categoria no banco de dados
-               $.post(view + '/edit', {nome, id, status}, function () {
+            // Exibe o form
+            $(modal).on('shown.bs.modal', function() {
+               // Foca o input
+               $(this).find('#nome').focus();
+               // Ao enviar o form
+               $(this).submit(function (e) {
+                  e.preventDefault();                  
+                  let nome = $('#nome').val();
+                  let id = $('#id').val();
+                  let status = $('#status').is(':checked') ? 1 : 0;
+                  
+                  // Salva registro no banco de dados
+                  $.post(view + '/edit', {nome, id, status}, function (data) {  
+                     let obj = JSON.parse(data);
+                     if (obj.icon === 'error') { 
+                        swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {                           
+                           modal.find('#nome').focus();
+                        });
+                     }
+                      else {
+                         swal(obj.title, obj.text, {icon: obj.icon}).then((value) => {  
+                           modal.hide();
+                           location.reload();
+                        });
+                      }                     
+                  });
                });
             });
-
          }
       });
    });
