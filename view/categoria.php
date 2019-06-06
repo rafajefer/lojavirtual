@@ -1,6 +1,4 @@
 <?php
-print_r($page);
-
 $categoria = addslashes($page[1]);
 
 $cat = new Categoria();

@@ -18,8 +18,9 @@ $(function () {
             modal.modal();
             modal.submit(function () {
                let nome = $('#nome').val();
+               let status = $('#status').is(':checked') ? 1 : 0;
                // Salva registro no banco de dados
-               $.post(view + '/add', {nome: nome}, function (data) {
+               $.post(view + '/add', {nome, status}, function (data) {
                   swal("Sucesso!", "Categoria adicionada com sucesso!", "success");
                   data.preventDefault();
                });
@@ -47,9 +48,10 @@ $(function () {
             modal.submit(function () {
                let nome = $('#nome').val();
                let id = $('#id').val();
+               let status = $('#status').is(':checked') ? 1 : 0;
 
                // Altera categoria no banco de dados
-               $.post(view + '/edit', {nome: nome, id: id}, function () {
+               $.post(view + '/edit', {nome, id, status}, function () {
                });
             });
 

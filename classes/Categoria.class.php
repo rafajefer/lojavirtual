@@ -13,7 +13,7 @@ class Categoria extends Crud {
    public function find($value) {
       $result = array();
       if (is_int($value)) {
-         $sql = "SELECT id, nome FROM $this->table WHERE id = :value";
+         $sql = "SELECT id, nome, status FROM $this->table WHERE id = :value";
       } else {
          $sql = "SELECT id, nome FROM $this->table WHERE nome = :value";
       }
@@ -60,10 +60,12 @@ class Categoria extends Crud {
       return $result;
    }
 
-   public function insert($categoria) {
-      $sql = "INSERT INTO $this->table (nome) VALUES (:nome)";
+   public function insert($nome, $status) {
+      $sql = "INSERT INTO $this->table (nome, status, slug) VALUES (:nome, :status, :slug)";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $categoria);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':status', $status);
+      $stmt->bindValue(':slug', Funcao::slug($nome));
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
          return true;
@@ -82,10 +84,12 @@ class Categoria extends Crud {
       return false;
    }
 
-   public function update($id, $nome) {
-      $sql = "UPDATE $this->table SET nome = :nome WHERE id = :id";
+   public function update($id, $nome, $status) {
+      $sql = "UPDATE $this->table SET nome = :nome, status = :status, slug = :slug WHERE id = :id";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':status', $status);
+      $stmt->bindValue(':slug', Funcao::slug($nome));
       $stmt->bindValue(':id', $id);
       $stmt->execute();
       if ($stmt->rowCount() > 0) {

@@ -133,7 +133,6 @@ require_once './autoload.php';
       <?php
       $page = isset($_GET['url']) ? addslashes($_GET['url']) : '';
       if (!empty($page)) {
-         //$filename = "view/$page/index.php";
          $filename = "view/".$page.".php";
          if (file_exists($filename)) {
             require_once $filename;
