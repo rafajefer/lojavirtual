@@ -74,7 +74,7 @@ class Produto extends Crud
     public function getDestaque()
     {
         $result = array();
-        $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 ORDER BY updated_at DESC LIMIT 3";
+        $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 ORDER BY RAND() DESC LIMIT 3";
         $stmt = Conexao::prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
