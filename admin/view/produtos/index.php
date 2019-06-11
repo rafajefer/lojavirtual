@@ -2,8 +2,7 @@
 $objeto = new Produto();
 
 // total de registros cadastrados
-$total = $objeto->total();
-
+$total = $objeto->total()->total;
 // pega valor $_GET['pagina'] ou seja valor da pagina atual
 $paginaAtual = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
 
