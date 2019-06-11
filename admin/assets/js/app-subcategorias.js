@@ -18,11 +18,11 @@ $(function () {
             modal.find('.modal-footer').hide();
             modal.modal();
             modal.submit(function () {
-               //e.preventDefault();
                let nome = $('#nome').val();
+               let status = $('#status').is(':checked') ? 1 : 0;
                let categoria_id = $('#categoria_id').val();
                // Salva registro no banco de dados
-               $.post(view + '/add', {nome, categoria_id}, function (data) {
+               $.post(view + '/add', {nome, status, categoria_id}, function (data) {
                   console.log(data);
                });
             });

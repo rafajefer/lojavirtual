@@ -58,11 +58,13 @@ class Subcategoria extends Crud {
       return $result;
    }
 
-   public function insert($subcategoria, $categoria_id) {
-      $sql = "INSERT INTO $this->table (nome, categoria_id) VALUES (:nome, :categoria_id)";
+   public function insert($nome, $status, $categoria_id) {
+      $sql = "INSERT INTO $this->table (nome, status, slug, categoria_id) VALUES (:nome, :status, :slug, :categoria_id)";
       $stmt = Conexao::prepare($sql);
-      $stmt->bindValue(':nome', $subcategoria);
+      $stmt->bindValue(':nome', $nome);
+      $stmt->bindValue(':status', $status);
       $stmt->bindValue(':categoria_id', $categoria_id);
+      $stmt->bindValue(':slug', Funcao::slug($nome));
       $stmt->execute();
       if ($stmt->rowCount() > 0) {
          return true;
