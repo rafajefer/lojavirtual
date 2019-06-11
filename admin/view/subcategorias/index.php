@@ -77,10 +77,12 @@ if (!empty($_GET['search'])) {
             <?php
             $striped = 'coluna1';
             foreach ($listagem as $row):
+               $cat = new Categoria();
+               $categoria = $cat->find((int)$row->categoria_id);
                ?>
                <tr class="<?php echo $striped; ?>">
                   <td align="center"><?php echo $row->id; ?></td>
-                  <td><?php echo $row->nome; ?></td>
+                  <td><?php echo $row->nome; ?> <sup style="font-size: 12px; color: #666">Cat: <?php echo $categoria->nome; ?></sup></td>
                   <td class="text-center">
                      <div class="custom-control custom-switch ">
                         <input type="checkbox" class="custom-control-input" id="switch<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" data-value="<?php echo $row->status; ?>" <?php echo $row->status == true ? 'checked' : ''; ?>>

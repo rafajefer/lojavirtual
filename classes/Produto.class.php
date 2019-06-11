@@ -79,10 +79,10 @@ class Produto extends Crud
     }
 
     // Adiciona um novo registro na tabela
-    public function insert($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $thumbnail, $destaque)
+    public function insert($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque)
     {
-        $sql = "INSERT INTO $this->table (categoria_id, subcategoria_id, fabricante_id, nome, preco_alto, preco, descricao, detalhes, status, thumbnail, destaque) "
-            . "VALUES (:categoria_id, :subcategoria_id, :fabricante_id, :nome, :preco_alto, :preco, :descricao, :detalhes, :status, :thumbnail, :destaque)";
+        $sql = "INSERT INTO $this->table (categoria_id, subcategoria_id, fabricante_id, nome, preco_alto, preco, descricao, detalhes, status, destaque, slug) "
+            . "VALUES (:categoria_id, :subcategoria_id, :fabricante_id, :nome, :preco_alto, :preco, :descricao, :detalhes, :status, :destaque, :slug)";
         $stmt = Conexao::prepare($sql);
         $stmt->bindValue(':categoria_id', $categoria_id);
         $stmt->bindValue(':subcategoria_id', $subcategoria_id);
@@ -93,8 +93,8 @@ class Produto extends Crud
         $stmt->bindValue(':descricao', $descricao);
         $stmt->bindValue(':detalhes', $detalhes);
         $stmt->bindValue(':status', $status);
-        $stmt->bindValue(':thumbnail', $thumbnail);
         $stmt->bindValue(':destaque', $destaque);
+        $stmt->bindValue(':slug', Funcao::slug($nome));
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             return true;
@@ -118,9 +118,9 @@ class Produto extends Crud
     // Atualiza registro na tabela
     public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque)
     {
-        $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, destaque = ? WHERE id = ?";
+        $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, destaque = ?, slug = ? WHERE id = ?";
         $stmt = Conexao::prepare($sql);
-        $stmt->execute(array($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, $id));
+        $stmt->execute(array($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, Funcao::slug($nome), $id));
         if ($stmt->rowCount() > 0) {
             return true;
         }

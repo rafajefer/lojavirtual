@@ -6,7 +6,7 @@ if (isset($_POST['categoria_id'])) {
    $categoria_id = intval($_POST['categoria_id']);
 
    $subcat = new Subcategoria();
-   $result = $subcat->findSubcategoria($categoria_id);
+   $result = $subcat->getSubcategoriasAll($categoria_id);
 }
 
 $jsonString = json_encode($result);
