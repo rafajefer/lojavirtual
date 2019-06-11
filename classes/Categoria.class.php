@@ -16,7 +16,7 @@ class Categoria extends Crud {
       if (is_int($value)) {
          $sql = "SELECT id, nome, status FROM $this->table WHERE id = :value";
       } else {
-         $sql = "SELECT id, nome FROM $this->table WHERE nome = :value";
+         $sql = "SELECT id, nome FROM $this->table WHERE slug = :value";
       }
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':value', $value);

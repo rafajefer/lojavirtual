@@ -14,6 +14,7 @@
             <li><a href="<?php echo URL_ADMIN . "fabricantes" ?>">Fabricantes</a> </li>
             <li><a href="<?php echo URL_ADMIN . "capitulos" ?>">Capítulo</a> </li>
             <li><a href="<?php echo URL_ADMIN . "aulas" ?>">Aulas</a> </li>
+            <li><a href="<?php echo URL_ADMIN . "navbar" ?>">Navbar</a> </li>
          </ul>
 
       </div>

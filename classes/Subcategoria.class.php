@@ -35,7 +35,7 @@ class Subcategoria extends Crud {
    // Busca as subcategorias ativas de acordo com categoria_id informado
    public function getSubcategoriasAtivas($categoria_id) {
       $result = array();
-      $sql = "SELECT * FROM $this->table WHERE categoria_id = :categoria_id AND status = 1 ORDER BY nome ASC";
+      $sql = "SELECT * FROM $this->table WHERE  categoria_id = :categoria_id AND status = 1 ORDER BY nome ASC";
       $stmt = Conexao::prepare($sql);
       $stmt->bindValue(':categoria_id', $categoria_id);
       $stmt->execute();
