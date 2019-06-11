@@ -6,8 +6,10 @@ $cat = new Categoria();
 $categoria = $cat->find($slug);
 
 $sub = new Subcategoria();
-$subcategorias = $sub->findSubcategoria($categoria->id);
+$subcategorias = $sub->getSubcategorias($categoria->id);
 
+$prod = new Produto();
+$produtos = $prod->getProdutos($categoria->id);
 ?>
 <div class="conteudo">
    <?php require_once './view/template/menu-lateral.php'; ?>

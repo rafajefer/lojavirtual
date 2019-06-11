@@ -10,7 +10,7 @@ class Categoria extends Crud {
 
    private $table = 'categoria';
 
-   // Busca registro pelo id ou nome
+   // Busca registro pelo id ou slug
    public function find($value) {
       $result = array();
       if (is_int($value)) {
