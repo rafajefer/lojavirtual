@@ -39,12 +39,17 @@ class Produto extends Crud
     }
 
     // Busca o produto
-    public function getProduto($id)
+    public function getProduto($value)
     {
         $result = array();
-        $sql = "SELECT p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as cat_nome, s.nome as subcat_nome FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.id = :id";
+
+        if(is_int($value)) {
+            $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug  FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.id = :value";
+        } else {
+            $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.slug = :value";
+        }
         $stmt = Conexao::prepare($sql);
-        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':value', $value);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $result = $stmt->fetch();

@@ -1,15 +1,15 @@
 <?php 
-   $produto_id = intval($page[1]);
+   $slug = addslashes($page[1]);
    
    $prod = new Produto();
-   $produto = $prod->getProduto($produto_id);   
+   $produto = $prod->getProduto($slug);   
 ?>
 <div class="conteudo margin-topo">
 	<!-- menu lateral-->
 	<?php require_once './view/template/menu-lateral.php'; ?>
 	
 	<div class="lado-dir">
-	<title class="migalha">Loja Virtual / <?php echo $produto->cat_nome; ?> / <?php echo $produto->subcat_nome; ?></title>
+	<div class="migalha">Loja Virtual / <a href="<?php echo URL_BASE."categoria/".$produto->categoria_slug; ?>" title="Acessa a categoria <?php echo $produto->categoria_nome; ?>"><?php echo $produto->categoria_nome; ?></a> / <a href="<?php echo URL_BASE."subcategoria/".$produto->subcategoria_slug; ?>" title="Acessa a subcategoria <?php echo $produto->subcategoria_nome; ?>"><?php echo $produto->subcategoria_nome; ?></a></div>
 		<div class="base-detalhes">
 		
 			<div class="imagem"><img src="<?php echo $produto->thumbnail; ?>"></div>
@@ -23,9 +23,9 @@
 				</div>
 				
 				<form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
-					<input name="txt_preco" 	type="hidden" id="txt_preco" value = "900.00" />
+					<input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $produto->preco; ?>" />
 					<input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
-					<input type="hidden" 		name="id_produto" value = "31"/>
+					<input type="hidden" 		name="id_produto" value = "<?php echo $produto->id; ?>"/>
 					<input type="submit" 		name="imageField" class="carrinho" value="Adicionar ao carrinho"  />
 				</form>
 			</div>
