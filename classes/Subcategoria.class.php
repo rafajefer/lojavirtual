@@ -45,7 +45,7 @@ class Subcategoria extends Crud
     {
         $result = array();
         $sql = "SELECT
-                s.nome, s.id FROM $this->table AS s RIGHT JOIN produto AS p ON p.subcategoria_id = s.id 
+                s.nome, s.id, s.slug FROM $this->table AS s RIGHT JOIN produto AS p ON p.subcategoria_id = s.id 
                 WHERE s.categoria_id = :categoria_id AND s.status = 1 AND p.status = 1  GROUP BY s.id ORDER BY nome ASC";
         $stmt = Conexao::prepare($sql);
         $stmt->bindValue(':categoria_id', $categoria_id);
@@ -71,6 +71,7 @@ class Subcategoria extends Crud
     }
 
     // Busca as subcategorias referente ao categoria_id
+    /*
     public function findSubcategoria($categoria_id)
     {
         $result = array();
@@ -83,7 +84,7 @@ class Subcategoria extends Crud
         }
         return $result;
     }
-
+    */
     public function insert($nome, $status, $categoria_id)
     {
         $sql = "INSERT INTO $this->table (nome, status, slug, categoria_id) VALUES (:nome, :status, :slug, :categoria_id)";

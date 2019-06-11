@@ -38,7 +38,19 @@ class Categoria extends Crud {
       }
       return $result;
    }
+   // Retorna categorias que possui subcategoria e que existe produtos nela
+   public function getCategorias() {
+      $result = array();
+        $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM categoria RIGHT JOIN produto ON produto.categoria_id = categoria.id GROUP BY categoria.id ORDER BY categoria.nome";
+        $stmt = Conexao::prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetchAll();
+        }
+        return $result;
+   }
 
+   
    // Verifica se existe uma categoria com o $nome
    public function existencia($nome, $id = null) {
       $sql = "SELECT * FROM $this->table WHERE nome = :nome";
