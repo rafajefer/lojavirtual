@@ -174,13 +174,20 @@ class Subcategoria extends Crud
         return $stmt->rowCount();
     }
 
-    // Retorna total de registro
-    public function total()
-    {
-        $sql = "SELECT id FROM $this->table";
-        $stmt = Conexao::prepare($sql);
+
+    // Retorna total de subcategorias de uma determinada de categoria
+    public function total($categoria_id = null) {
+        if(!empty($categoria_id)) {
+            $sql = "SELECT id, count(id) as total FROM $this->table WHERE categoria_id = :categoria_id";
+            $stmt = Conexao::prepare($sql);
+            $stmt->bindValue(':categoria_id', $categoria_id);
+        } else {
+            $sql = "SELECT id FROM $this->table";
+            $stmt = Conexao::prepare($sql);
+        }
+       
         $stmt->execute();
-        return $stmt->rowCount();
+        return $stmt->fetch();
     }
 
 }

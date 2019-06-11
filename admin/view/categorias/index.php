@@ -32,6 +32,8 @@ if (!empty($_GET['search'])) {
    $listagem = $objeto->paginacao($perPage, $inicio);
    $url_paginacao = URL_ADMIN . "index.php?p=categorias";
 }
+
+
 ?>
 
 <div data-page="categorias">
@@ -69,6 +71,8 @@ if (!empty($_GET['search'])) {
             <tr>
                <td align="center" class="tdbc" width="60">ID</td>
                <td align="center" class="tdbc">Categoria</td>
+               <td align="center" class="tdbc"  width="60">Subcat..</td>
+               <td align="center" class="tdbc"  width="60">Prod..</td>
                <td align="center" class="tdbc"  width="60">Ativo</td>
                <td align="center" class="tdbc"  width="160">Ação</td>
             </tr>
@@ -77,10 +81,14 @@ if (!empty($_GET['search'])) {
             <?php
             $striped = 'coluna1';
             foreach ($listagem as $row):
+               $subcat = new Subcategoria();              
+               $prod = new Produto();
                ?>
                <tr class="<?php echo $striped; ?>">
                   <td align="center"><?php echo $row->id; ?></td>
                   <td><?php echo $row->nome; ?></td>
+                  <td align="center"><?php echo $subcat->total($row->id)->total; ?></td>
+                  <td align="center"><?php echo $prod->total($row->id)->total; ?></td>
                   <td class="text-center">
                      <div class="custom-control custom-switch ">
                         <input type="checkbox" class="custom-control-input" id="switch<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" data-value="<?php echo $row->status; ?>" <?php echo $row->status == true ? 'checked' : ''; ?>>

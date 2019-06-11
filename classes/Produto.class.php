@@ -179,6 +179,7 @@ class Produto extends Crud
     }
 
     // Retorna total de registros cadastrados
+   /*
     public function total()
     {
 
@@ -186,6 +187,21 @@ class Produto extends Crud
         $stmt = Conexao::prepare($sql);
         $stmt->execute();
         return $stmt->rowCount();
+    }
+    */
+    // Retorna total de produtos de uma determinada de categoria
+    public function total($categoria_id = null) {
+        if(!empty($categoria_id)) {
+            $sql = "SELECT count(id) as total FROM $this->table WHERE categoria_id = :categoria_id";
+            $stmt = Conexao::prepare($sql);
+            $stmt->bindValue(':categoria_id', $categoria_id);
+        } else {
+            $sql = "SELECT id FROM $this->table";
+            $stmt = Conexao::prepare($sql);
+        }
+       
+        $stmt->execute();
+        return $stmt->fetch();
     }
 
 }
