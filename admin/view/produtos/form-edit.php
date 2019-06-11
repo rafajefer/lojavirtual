@@ -10,7 +10,7 @@ if (!empty($_POST['id'])) :
    $categorias = $cat->findAll();
    
    $sub = new Subcategoria();
-   $subcategorias = $sub->findSubcategoria($obj->categoria_id);
+   $subcategorias = $sub->getSubcategoriasAll($obj->categoria_id);
    
    $fab = new Fabricante();
    $fabricantes = $fab->findAll();

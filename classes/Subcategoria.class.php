@@ -55,7 +55,7 @@ class Subcategoria extends Crud
         }
         return $result;
     }
-
+    /*
     // Busca as subcategorias com status true e categoria_id = $categoria_id e que possuí produtos cadastrados
     public function getSubcategoriasAtivas($categoria_id)
     {
@@ -69,10 +69,9 @@ class Subcategoria extends Crud
         }
         return $result;
     }
-
-    // Busca as subcategorias referente ao categoria_id
-    /*
-    public function findSubcategoria($categoria_id)
+*/
+    // Busca todas as subcategorias status true or false que estiver na categoria informada pelo $categoria_id 
+    public function getSubcategoriasAll($categoria_id)
     {
         $result = array();
         $sql = "SELECT * FROM $this->table WHERE categoria_id = :categoria_id ORDER BY nome asc";
@@ -84,7 +83,6 @@ class Subcategoria extends Crud
         }
         return $result;
     }
-    */
     public function insert($nome, $status, $categoria_id)
     {
         $sql = "INSERT INTO $this->table (nome, status, slug, categoria_id) VALUES (:nome, :status, :slug, :categoria_id)";
@@ -183,7 +181,7 @@ class Subcategoria extends Crud
             $stmt = Conexao::prepare($sql);
             $stmt->bindValue(':categoria_id', $categoria_id);
         } else {
-            $sql = "SELECT id FROM $this->table";
+            $sql = "SELECT count(id) as total FROM $this->table";
             $stmt = Conexao::prepare($sql);
         }
        
