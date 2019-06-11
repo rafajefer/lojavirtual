@@ -10,14 +10,12 @@ if (!empty($_POST['id'])) :
    $categorias = $cat->findAll();
    ?>
    <form method="POST">
-      <div class="form-group">
-         <label for="subcategoria">Subcategoria:</label>
-      </div>
-
-      <input type="hidden" class="form-control" id="id" value="<?php echo $obj->id; ?>">
+            <input type="hidden" class="form-control" id="id" value="<?php echo $obj->id; ?>">
       <div class="row">
          <div class="col-4">
             <div class="form-group">
+               <label for="categoria">Categoria:</label>            
+            </div>
                <select class="form-control" id="categoria_id">
                   <?php
                   foreach ($categorias as $categoria):
@@ -27,9 +25,11 @@ if (!empty($_POST['id'])) :
                   endforeach;
                   ?>
                </select>
-            </div>
          </div>
          <div class="col-8">
+            <div class="form-group">
+               <label for="subcategoria">Nome subcategoria:</label>
+            </div>
             <div class="input-group mb-3">
                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $obj->nome; ?>">
                <div class="input-group-append">
