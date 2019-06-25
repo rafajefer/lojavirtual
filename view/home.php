@@ -33,9 +33,9 @@
       <?php $prod = new Produto(); ?>
       <?php foreach ($prod->getDestaque() as $destaque): ?>
          <div class="cx-maisvendido">
-            <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=2"><img src="<?php echo $destaque->thumbnail; ?>"></a></div>
+            <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=2" title="<?php echo $destaque->nome;?>"><img src="<?php echo $destaque->thumbnail; ?>"></a></div>
             <div class="del">
-               <h2><a href="<?php echo URL_BASE ?>produto/&p=2"><?php echo mb_strimwidth($destaque->nome, 0, 50, "..."); ?></a></h2>
+               <h2><a href="<?php echo URL_BASE ?>produto/&p=2" title="<?php echo $destaque->nome;?>"><?php echo mb_strimwidth($destaque->nome, 0, 50, "..."); ?></a></h2>
                <div class="prc-ant">De <small> R$ <?php echo $destaque->preco_alto; ?></small><font> Por</font></div>
                <span>R$ <?php echo $destaque->preco; ?></span>
                <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
