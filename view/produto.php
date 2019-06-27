@@ -2,10 +2,7 @@
    $slug = addslashes($page[1]);
    
    $prod = new Produto();
-   $produto = $prod->getProduto($slug);  
-echo "<pre>";
-   print_r($produto);
-   echo "</pre>";
+   $produto = $prod->getProduto($slug); 
 ?>
 <div class="conteudo margin-topo">
 	<!-- menu lateral-->
@@ -15,7 +12,7 @@ echo "<pre>";
 	<div class="migalha">Loja Virtual / <a href="<?php echo URL_BASE."categoria/".$produto->categoria_slug; ?>" title="Acessa a categoria <?php echo $produto->categoria_nome; ?>"><?php echo $produto->categoria_nome; ?></a> / <a href="<?php echo URL_BASE."subcategoria/".$produto->subcategoria_slug; ?>" title="Acessa a subcategoria <?php echo $produto->subcategoria_nome; ?>"><?php echo $produto->subcategoria_nome; ?></a></div>
 		<div class="base-detalhes">
 		
-			<div class="imagem"><img src="<?php echo $produto->thumbnail; ?>"></div>
+			<div class="imagem"><img src="<?php echo URL_BASE.$produto->thumbnail; ?>"></div>
 			<div class="cx-opcoes">
 				<h3><?php echo $produto->nome; ?></h3>
 				<div class="cx-preco">

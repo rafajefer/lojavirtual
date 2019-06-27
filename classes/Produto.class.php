@@ -175,14 +175,21 @@ class Produto extends Crud
         if(!empty($imagens)) {
             Upload::images($imagens, $id, "produtos");
         }
-        /*
-        if ($stmt->rowCount() > 0) {            
+        return true;
+    }
+
+    // Atualiza imagem principal do produto thumbnail
+    public function update_imagem($imagem, $id) {
+        $imagem = "assets/imagens/produtos/".$imagem['name'][0];
+        $sql = "UPDATE produto SET thumbnail = :thumbnail WHERE id = :id";
+        $stmt = Conexao::prepare($sql);
+        $stmt->bindValue(':thumbnail', $imagem);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
             return true;
         }
-        
         return false;
-        */
-        return true;
     }
 
     // Altera status do registro para ativo ou inativo

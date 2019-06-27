@@ -82,8 +82,20 @@ class Upload {
                     $stmt->bindValue(':produto_id', $produto_id);
                     $stmt->bindValue(':url', "assets/imagens/".$tmpname);
                     $stmt->execute();
+
+                    $cont = 1;
+                    if($cont == 1) {
+
+                        $sql = "UPDATE produto SET thumbnail = :thumbnail WHERE id = :id";
+                        $stmt = Conexao::prepare($sql);
+                        $stmt->bindValue(':thumbnail', "assets/imagens/".$tmpname);
+                        $stmt->bindValue(':id', $produto_id);
+                        $stmt->execute();
+                        $cont = 0;
+                    }
                 }
             }
+            
         }
     }
 }
