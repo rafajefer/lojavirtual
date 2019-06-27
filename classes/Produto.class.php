@@ -42,9 +42,9 @@ class Produto extends Crud
     public function getProduto($value)
     {
         $result = array();
-
+        
         if(is_int($value)) {
-            $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome, i.url as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id INNER JOIN produto_imagens as i ON i.produto_id = p.id WHERE p.id = :value";
+            $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.id = :value";
         } else {
             $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.slug = :value";
         }

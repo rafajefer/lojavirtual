@@ -5,7 +5,7 @@ if (!empty($_POST['id'])) :
    $id = intval($_POST['id']);
    $objeto = new Produto();
    $obj = $objeto->find($id);
-
+   $teste = $objeto->getProduto($id);
    $cat = new Categoria();
    $categorias = $cat->findAll();
    
@@ -19,10 +19,12 @@ if (!empty($_POST['id'])) :
 <form method="POST" action="view/produtos/edit.php" enctype="multipart/form-data">
    <input type="hidden" name="id" value="<?php echo $id; ?>" />
    <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 d-flex">
+      <?php foreach($teste->imagens as $imagem): ?>
          <figure>
-            <img src="<?php echo $obj->thumbnail; ?>" width="100px" />
+            <img src="<?php echo URL_BASE.$imagem->url; ?>" width="100px" />
          </figure>
+      <?php endforeach;?>
       </div>
    </div>
    <div class="row">
