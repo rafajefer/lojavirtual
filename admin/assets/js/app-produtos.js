@@ -41,59 +41,61 @@ $(function () {
       });
    });
 
+   // Carrega os dados no modal form-edit
+   function carregarDadosModal(id) {
+      // Chama form e carrega os dados no form
+      $.ajax({
+      url: view + '/form-edit.php',
+      type: 'POST',
+      data: {id},
+      success: function (response) {
+         let modal = $('#myModal');
+         modal.find(".modal-header").addClass("bg-info").addClass("text-white");
+         modal.find("h4").text("Editar produto");
+         modal.find('.modal-body').html(response);
+         modal.find('.modal-footer').hide();
+         modal.modal();
+
+         let categoria_selected = modal.find("#categoria_id");
+         // ao seleciona categoria lista as subcategorias referente a categoria selecionada 
+         categoria_selected.change(function () {
+            // Remove as subcategorias que não faz parte da categoria selecionada
+            $("#subcategoria_id option").each(function () {
+               $(this).remove();
+            });
+            // Guarda o valor id do option selecionado na variabel categoria_id
+            let categoria_id = $(this).val();
+            // faz uma busca, enviando o id do option selecionado
+            $.post(view + '/busca_subcategoria.php', {categoria_id}, function (data) {
+               // Converte o resultado da busca para json
+               let obj = JSON.parse(data);
+               let subcategoria = modal.find("#subcategoria_id");
+               // add os resultado em option no modal
+               obj.forEach(function (element) {
+                  $(subcategoria).append("<option value='" + element.id + "'>" + element.nome + "</option>");
+               });
+            });
+         });
+
+         // Delete imagem do produto
+         $('.delete-imagem').bind('click', function(){
+            let element = $(this).parent().attr('data-id');
+            $.post(view + '/delete-imagem.php', {id: element}, function (response) {
+               console.log(response);
+               carregarDadosModal(id);
+
+            });
+         });
+
+         }
+      });   
+   }
+
    // Editar registro
    $(document).on('click', 'a[data-edit]', function () {
 
-      let id = $(this).attr('data-edit');
-      // Chama form e carrega os dados no form
-      $.ajax({
-         url: view + '/form-edit.php',
-         type: 'POST',
-         data: {id},
-         success: function (response) {
-            let modal = $('#myModal');
-            modal.find(".modal-header").addClass("bg-info").addClass("text-white");
-            modal.find("h4").text("Editar produto");
-            modal.find('.modal-body').html(response);
-            modal.find('.modal-footer').hide();
-            modal.modal();
-
-            let categoria_selected = modal.find("#categoria_id");
-            // ao seleciona categoria lista as subcategorias referente a categoria selecionada 
-            categoria_selected.change(function () {
-               // Remove as subcategorias que não faz parte da categoria selecionada
-               $("#subcategoria_id option").each(function () {
-                  $(this).remove();
-               });
-               // Guarda o valor id do option selecionado na variabel categoria_id
-               let categoria_id = $(this).val();
-               // faz uma busca, enviando o id do option selecionado
-               $.post(view + '/busca_subcategoria.php', {categoria_id}, function (data) {
-                  // Converte o resultado da busca para json
-                  let obj = JSON.parse(data);
-                  let subcategoria = modal.find("#subcategoria_id");
-                  // add os resultado em option no modal
-                  obj.forEach(function (element) {
-                     $(subcategoria).append("<option value='" + element.id + "'>" + element.nome + "</option>");
-                  });
-               });
-            });
-
-            /*
-             modal.submit(function (e) {
-               e.preventDefault();
-               let nome = $('#nome').val();
-               let id = $('#id').val();
-               let categoria_id = $('#categoria_id').val();
-               
-               // Altera categoria no banco de dados
-               $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
-                  console.log(data);
-               });
-             });
-             */
-         }
-      });
+      var id = $(this).attr('data-edit');
+      carregarDadosModal(id);
    });
 
    // Deleta registro

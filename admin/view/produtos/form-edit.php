@@ -18,15 +18,7 @@ if (!empty($_POST['id'])) :
 
 <form method="POST" action="view/produtos/edit.php" enctype="multipart/form-data">
    <input type="hidden" name="id" value="<?php echo $id; ?>" />
-   <div class="row">
-      <div class="col-md-3 d-flex">
-      <?php foreach($teste->imagens as $imagem): ?>
-         <figure>
-            <img src="<?php echo URL_BASE.$imagem->url; ?>" width="100px" />
-         </figure>
-      <?php endforeach;?>
-      </div>
-   </div>
+   
    <div class="row">
       <div class="col-md-8">
          <label for="produto">Produto</label>
@@ -120,13 +112,26 @@ if (!empty($_POST['id'])) :
       </div>
    </div>
    <div class="row">
-      <div class="col-md-12">
+      <div class="col-12 mt-3">
          <div class="form-group">
             <label for="descricao">Descrição:</label>
             <textarea class="form-control" rows="5" id="descricao" name="descricao"><?php echo $obj->descricao; ?></textarea>
          </div>
       </div>
-   </div><hr />
+   </div>
+
+   <div class="row">
+      <div class="col-12 d-flex flex-wrap">
+         <?php foreach($teste->imagens as $imagem): ?>
+            <figure style="position: relative; margin-bottom: 10px; margin-right: 2px;" data-id="<?php echo $imagem->id ?>">
+               <img src="<?php echo URL_BASE.$imagem->url; ?>" width="100px" class="img-thumbnail" />
+               <img src="<?php echo URL_ADMIN.'assets/imagens/trash-delete.png'?>"  class="delete-imagem" />
+            </figure>
+         <?php endforeach;?>
+      </div>
+   </div>
+
+   <hr />
    <div class="row">
       <div class="col-md-12 d-flex justify-content-end">
          <button type="submit" class="btn btn-success px-5">Salvar</button>

@@ -37,12 +37,24 @@ class Produto extends Crud
         }
         return $result;
     }
+    // Busca imagem do produto via $id
+    public function getImagem($id)
+    {
+        $sql = "SELECT * FROM produto_imagens WHERE id = :id";
+        $stmt = Conexao::prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return $stmt->fetch();
+        }
+        return false;
+    }
 
     // Busca o produto
     public function getProduto($value)
     {
         $result = array();
-        
+
         if(is_int($value)) {
             $sql = "SELECT p.id, p.nome, p.preco_alto, p.preco, p.descricao, p.detalhes, p.thumbnail, c.nome as categoria_nome, c.slug as categoria_slug, s.nome as subcategoria_nome, s.slug as subcategoria_slug FROM produto AS p INNER JOIN categoria as c ON p.categoria_id = c.id INNER JOIN subcategoria as s ON s.id = p.subcategoria_id WHERE p.id = :value";
         } else {
@@ -127,6 +139,31 @@ class Produto extends Crud
             return true;
         }
         return false;
+    }
+
+    // Exclui imagem do produto
+    public function delete_imagem($id)
+    {        
+        if($result = $this->getImagem($id)) {
+            $file = "../../../".$result->url;
+            //$path = "../../../assets/imagens/produtos/f4eb8c04fc537053a2e260acf53aab00.jpg";
+            if(file_exists($file)) {
+                if(unlink($file)) 
+                    $sql = "DELETE FROM produto_imagens WHERE id = :id";
+                    $stmt = Conexao::prepare($sql);
+                    $stmt->bindValue(':id', $id);
+                    $stmt->execute();
+                    if ($stmt->rowCount() > 0) {                        
+                        return "Excluido com sucesso!";
+                    }
+                else
+                    return "Oops, Ocorreu algum erro ao excluir!";
+            } else {
+                return "Oops, arquivo não encontrado no diretório: ".$file;
+            }
+        } else {
+            return "Oops, arquivo não foi localizado na nossa base de dados!";
+        }
     }
 
     // Atualiza registro na tabela

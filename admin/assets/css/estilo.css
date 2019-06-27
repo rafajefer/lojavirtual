@@ -1159,3 +1159,20 @@ text-transform:uppercase;
 	
 }
 
+
+/* Estilo do botão excluir imagem do produto no modal de edição do produto */
+.delete-imagem {
+	width:20px; 
+	position: absolute; 
+	bottom: 0; 
+	right: 0; 
+	margin-bottom: -5px; 
+	cursor: pointer;
+	opacity: 1;
+  	filter: alpha(opacity=50); /* For IE8 and earlier */
+	transition: all 0.5s;
+}
+.delete-imagem:hover {
+	opacity: 0.7;
+  	filter: alpha(opacity=50); /* For IE8 and earlier */
+}
