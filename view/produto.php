@@ -2,7 +2,10 @@
    $slug = addslashes($page[1]);
    
    $prod = new Produto();
-   $produto = $prod->getProduto($slug);   
+   $produto = $prod->getProduto($slug);  
+echo "<pre>";
+   print_r($produto);
+   echo "</pre>";
 ?>
 <div class="conteudo margin-topo">
 	<!-- menu lateral-->
@@ -49,16 +52,14 @@
 				</li>	
 				
 				<li id="aba3">
-				<div class="descricao">
-				<strong>Fotos do produto</strong>
-            
-				<div class="fotos">
-					<img src="<?php echo URL_BASE ?>assets/imagens/produtos/smartphone_samsung.jpg">
-				</div>
-				<div class="fotos">
-					<img src="<?php echo URL_BASE ?>assets/imagens/produtos/smartphone_samsung.jpg">
-				</div>
-				</div>
+					<div class="descricao">
+						<strong>Fotos do produto</strong>
+						<?php foreach($produto->imagens as $imagem): ?>
+							<div class="fotos">
+								<img src="<?php echo URL_BASE.$imagem->url;?>" style="padding: 0; margin:0">
+							</div>
+						<?php endforeach; ?>
+					</div>
 				</li>				
 				
 			</ul>

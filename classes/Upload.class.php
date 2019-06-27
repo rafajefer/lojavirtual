@@ -27,17 +27,17 @@ class Upload {
         // Verifica se foi enviada alguma imagem
         if(count($fotos) > 0) {
             
-            echo "<script>alert(' count ok')</script>";
             // percorre as imagens enviadas
             for($q=0;$q<count($fotos['tmp_name']);$q++) {
                 // Cria um array para guarda os tipos das imagens
                 $tipo = $fotos['type'][$q];
+                // Guarda extensao do arquivo
+                $ext = strrchr($fotos["name"][$q],".");
                 // Verifica se extensao das imagens são jpeg ou png
                 if(in_array($tipo, array('image/jpeg', 'image/png'))) {
-                    // Cria um nome aleatório para imagem e define sua extensão jpg
-                    $tmpname = md5(time().rand(0,9999)).'.jpg';
+                    // Cria um nome aleatório para imagem e define sua extensão
+                    $tmpname = md5(time().rand(0,9999)).$ext;
                     // Move a imagem para a pasta indicada
-                    //$path = 'assets/imagens/'.$dir.'/'.$tmpname;
                     $path = $dir.'/'.$tmpname;
                     move_uploaded_file($fotos['tmp_name'][$q], $path);
 
@@ -65,11 +65,16 @@ class Upload {
                         $origi = imagecreatefromjpeg($path);
                     } elseif($tipo == 'image/png') {
                         // Cria imagem png
-                        $origi = imagecreatefrompng($path);
+                        $origi = imagecreatefrompng($path);  
+                        // Remove fundo preto da imagem png
+                        imagesavealpha($img, true);
+                        $cor_fundo = imagecolorallocatealpha($img,0,0,0,127);
+                        imagefill($img,0,0,$cor_fundo);                     
                     }
 
+                    // Faz a interpolação da imagem base com a imagem original
                     imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-                    imagejpeg($img, $path, 80);
+                    imagepng($img, $path);
 
                     isset($pasta) ? $tmpname = $pasta.'/'.$tmpname : '';
                     $sql = "INSERT INTO produto_imagens SET produto_id = :produto_id, url = :url";
