@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Categoria
+ * Description of Produto
  *
  * @author Rafael Jeferson <rafa.jefer@gmail.com>
  * @tutorial package
@@ -121,15 +121,22 @@ class Produto extends Crud
     }
 
     // Atualiza registro na tabela
-    public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque)
+    public function update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, $imagens)
     {
         $sql = "UPDATE $this->table SET categoria_id = ?, subcategoria_id = ?, fabricante_id = ?, nome = ?, preco_alto = ?, preco = ?, descricao = ?, detalhes = ?, status = ?, destaque = ?, slug = ? WHERE id = ?";
         $stmt = Conexao::prepare($sql);
         $stmt->execute(array($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, Funcao::slug($nome), $id));
-        if ($stmt->rowCount() > 0) {
+        if(!empty($imagens)) {
+            Upload::images($imagens, $id, "produtos");
+        }
+        /*
+        if ($stmt->rowCount() > 0) {            
             return true;
         }
+        
         return false;
+        */
+        return true;
     }
 
     // Altera status do registro para ativo ou inativo

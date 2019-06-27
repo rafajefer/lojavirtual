@@ -16,7 +16,7 @@ if (!empty($_POST['id'])) :
    $fabricantes = $fab->findAll();
    ?>
 
-<form method="POST" action="view/produtos/edit.php">
+<form method="POST" action="view/produtos/edit.php" enctype="multipart/form-data">
    <input type="hidden" name="id" value="<?php echo $id; ?>" />
    <div class="row">
       <div class="col-md-3">
@@ -94,8 +94,8 @@ if (!empty($_POST['id'])) :
    <div class="row">
       <div class="col-md-8">
          <div class="custom-file mt-3">
-            <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail" value="<?php echo $obj->thumbnail; ?>">
-            <label class="custom-file-label" for="thumbnail">Imagem do produto</label>
+            <input type="file" class="custom-file-input" id="imagens" name="imagens[]" multiple="multiple">
+            <label class="custom-file-label" for="imagens">Imagem do produto</label>
          </div>
       </div>
       <div class="col-md-2">

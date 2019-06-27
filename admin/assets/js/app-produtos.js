@@ -81,15 +81,15 @@ $(function () {
 
             /*
              modal.submit(function (e) {
-             e.preventDefault();
-             let nome = $('#nome').val();
-             let id = $('#id').val();
-             let categoria_id = $('#categoria_id').val();
-             
-             // Altera categoria no banco de dados
-             $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
-             console.log(data);
-             });
+               e.preventDefault();
+               let nome = $('#nome').val();
+               let id = $('#id').val();
+               let categoria_id = $('#categoria_id').val();
+               
+               // Altera categoria no banco de dados
+               $.post(view + '/edit', {nome, id, categoria_id}, function (data) {
+                  console.log(data);
+               });
              });
              */
          }

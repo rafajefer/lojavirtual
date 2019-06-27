@@ -12,12 +12,12 @@ if(!empty($_POST['id'])) {
    $preco = addslashes($_POST['preco']);
    $descricao = addslashes($_POST['descricao']);
    $status = !empty($_POST['status']) ? 1 : 0;
-   //$thumbnail = addslashes($_POST['thumbnail']);
+   $imagens = $_FILES['imagens'];
    $destaque = !empty($_POST['destaque']) ? 1 : 0;
    $detalhes = null;
    
    $objeto = new Produto();
-   if($objeto->update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque)) {
+   if($objeto->update($id, $categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque, $imagens)) {
       header("Location: ".URL_ADMIN."index.php?p=produtos");
    } else {
       header("Location: ".URL_ADMIN."index.php?p=produtos_ERROADD");

@@ -1,4 +1,5 @@
 <?php
+
 $objeto = new Produto();
 
 // total de registros cadastrados
