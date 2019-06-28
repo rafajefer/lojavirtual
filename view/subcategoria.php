@@ -23,15 +23,15 @@
                     <!-- Start .\ Produto -->
                     <div class="quatro-colunas-cat sub">
                         <div class="cx-img">
-                            <a href="<?php echo $produto->slug; ?>"><img src="<?php echo $produto->thumbnail; ?>"></a>
+                            <a href="<?php echo $produto->slug; ?>"><img src="<?php echo URL_BASE.$produto->thumbnail; ?>"></a>
                         </div>
-                        <h2><a href="<?php echo URL_BASE."produto/".$produto->slug; ?>"><?php echo $produto->nome; ?></a></h2>
-                        <div class="prc-ant"><small>De R$ 10460.94</small> <font>Por</font></div>
-                        <h3> 9000.00</h3>
+                        <h2><a href="<?php echo URL_BASE."produto/".$produto->slug; ?>"><?php echo mb_strimwidth($produto->nome, 0, 60, "..."); ?></a></h2>
+                        <div class="prc-ant"><small>De R$ <?php echo number_format($produto->preco_alto,2,",","."); ?></small> <font>Por</font></div>
+                        <h3><?php echo number_format($produto->preco,2,",","."); ?></h3>
 
                         <div class="cx-botoes">
                             <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
-                                <input name="txt_preco" 	type="hidden" id="txt_preco" value = "9000.00" />
+                                <input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $produto->preco; ?>" />
                                 <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
                                 <input type="hidden" 		name="id_produto" value = "1"/>
                                 <input type="submit" 		name="imageField" class="bot-comprar" value="Comprar"  />

@@ -35,11 +35,11 @@
          <div class="cx-maisvendido">
             <div class="prod"><a href="<?php echo URL_BASE ?>produto/&p=2" title="<?php echo $destaque->nome;?>"><img src="<?php echo $destaque->thumbnail; ?>"></a></div>
             <div class="del">
-               <h2><a href="<?php echo URL_BASE ?>produto/&p=2" title="<?php echo $destaque->nome;?>"><?php echo mb_strimwidth($destaque->nome, 0, 50, "..."); ?></a></h2>
-               <div class="prc-ant">De <small> R$ <?php echo $destaque->preco_alto; ?></small><font> Por</font></div>
-               <span>R$ <?php echo $destaque->preco; ?></span>
+               <h2><a href="<?php echo URL_BASE ?>produto/&p=2" title="<?php echo $destaque->nome;?>"><?php echo mb_strimwidth($destaque->nome, 0, 40, "..."); ?></a></h2>
+               <div class="prc-ant">De <small> R$ <?php echo number_format($destaque->preco_alto,2,",","."); ?></small><font> Por</font></div>
+               <span>R$ <?php echo number_format($destaque->preco,2,",","."); ?></span>
                <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>carrinho">
-                  <input name="txt_preco" 	type="hidden" id="txt_preco" value = "9000.00" />
+                  <input name="txt_preco" 	type="hidden" id="txt_preco" value = "<?php echo $destaque->preco; ?>" />
                   <input name="txt_qtde" 		type="hidden" id="txt_qtde" value = "1" />
                   <input type="hidden" 		name="id_produto" value = "<?php echo $destaque->id; ?>"/>
                   <input type="submit" 		name="imageField" class="comprar" value="Comprar"  />
