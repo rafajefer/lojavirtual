@@ -76,49 +76,21 @@ $config = new Empresa();
                   <li class="mostra"><a href="<?php echo URL_BASE ?>login"><i class="ico-logar"></i>Login</a></li>  					
                   <li class="mostra"><a href="<?php echo URL_BASE ?>cadastro"><i class="ico-cad"></i>Cadastrar	</a></li>     
 
-
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-mb.png"></span>Informática</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-smt.png"></span>Smartphones</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-not.png"></span>Notebooks</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-tab.png"></span>Tablets</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-des.png"></span>Hardware</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-ace.png"></span>Acessórios</a>
-                     <ul>
-                        <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>
-                        <li><a href="#" title="Sub Produto 2">Sub Produto 2</a></li>
-                        <li><a href="#" title="Sub Produto 3">Sub Produto 3</a></li>
-                     </ul>
-                  </li>
+                  <!-- navbar horizontal -->
+                  <?php 
+                     $cat = new Categoria();    
+                     $sub = new Subcategoria();
+                     $categorias = $cat->getCategoriasLimit(6);
+                  ?>
+                  <?php foreach($categorias as $categoria): ?>
+                     <li><a href="<?php echo URL_BASE.'categoria/'.$categoria->slug; ?>"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-mb.png"></span><?php $string = explode(" ", $categoria->nome); echo $string[0];?></a>
+                        <ul>
+                           <?php foreach($sub->getSubcategorias($categoria->id) as $subcategoria): ?>
+                           <li><a href="<?php echo URL_BASE.'subcategoria/'.$subcategoria->slug; ?>" title="Sub Produto 1"><?php echo $subcategoria->nome;?></a></li>
+                           <?php endforeach;?>
+                        </ul>
+                     </li>
+                  <?php endforeach; ?>
                   <li><a href="index.php?link=11"><span><img src="<?php echo URL_BASE ?>assets/imagens/ico-out.png"></span>Outros</a>
                      <ul>
                         <li><a href="#" title="Sub Produto 1">Sub Produto 1</a>	</li>

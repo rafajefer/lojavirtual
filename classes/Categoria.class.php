@@ -39,12 +39,40 @@ class Categoria extends Crud {
       return $result;
    }
    // Retorna categorias que possui subcategoria e que existe produtos nela e todos tem que ser true
-   public function getCategorias() {
-      $result = array();
-        $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM produto 
-        LEFT JOIN categoria ON produto.categoria_id = categoria.id 
-        LEFT JOIN subcategoria ON produto.subcategoria_id = subcategoria.id
-        WHERE produto.status = 1 AND categoria.status = 1 AND subcategoria.status = 1 GROUP BY categoria.id ORDER BY categoria.nome";
+   public function getCategorias($order = null, $limit = null) {
+        $result = array();
+        if(empty($order)) {
+            $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM produto 
+            LEFT JOIN categoria ON produto.categoria_id = categoria.id 
+            LEFT JOIN subcategoria ON produto.subcategoria_id = subcategoria.id
+            WHERE produto.status = 1 AND categoria.status = 1 AND subcategoria.status = 1 GROUP BY categoria.id ORDER BY categoria.nome";
+        } else {
+            $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM produto 
+            LEFT JOIN categoria ON produto.categoria_id = categoria.id 
+            LEFT JOIN subcategoria ON produto.subcategoria_id = subcategoria.id
+            WHERE produto.status = 1 AND categoria.status = 1 AND subcategoria.status = 1 GROUP BY categoria.id ORDER BY ".$order;
+        }
+        $stmt = Conexao::prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetchAll();
+        }
+        return $result;
+   }
+
+   public function getCategoriasLimit($limit, $order = null) {
+        $result = array();
+        if(empty($order)) {
+            $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM produto 
+            LEFT JOIN categoria ON produto.categoria_id = categoria.id 
+            LEFT JOIN subcategoria ON produto.subcategoria_id = subcategoria.id
+            WHERE produto.status = 1 AND categoria.status = 1 AND subcategoria.status = 1 GROUP BY categoria.id ORDER BY categoria.nome LIMIT ".$limit;
+        } else {
+            $sql = "SELECT categoria.id, categoria.nome, categoria.slug FROM produto 
+            LEFT JOIN categoria ON produto.categoria_id = categoria.id 
+            LEFT JOIN subcategoria ON produto.subcategoria_id = subcategoria.id 
+            WHERE produto.status = 1 AND categoria.status = 1 AND subcategoria.status = 1 GROUP BY categoria.id ORDER BY ".$order." LIMIT ".$limit;
+        }
         $stmt = Conexao::prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {

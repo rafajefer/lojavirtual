@@ -94,7 +94,7 @@ $fabricantes = $fab->findAll();
       </div>
    </div>
    <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 mt-3">
          <div class="form-group">
             <label for="descricao">Descrição:</label>
             <textarea class="form-control" rows="5" id="descricao" name="descricao"></textarea>

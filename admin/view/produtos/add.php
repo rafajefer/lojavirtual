@@ -13,8 +13,8 @@ if(!empty($_POST['nome']) && !empty($_POST['categoria_id'])) {
    $subcategoria_id = intval($_POST['subcategoria_id']);
    $fabricante_id = intval($_POST['fabricante_id']);   
    $nome = addslashes($_POST['nome']);
-   $preco_alto = addslashes($_POST['preco_alto']);
-   $preco = addslashes($_POST['preco']);
+   $preco_alto = number_format(addslashes($_POST['preco_alto']),2,".",",");
+   $preco = number_format(addslashes($_POST['preco']),2,".",",");
    $descricao = addslashes($_POST['descricao']);
    $status = $_POST['status'] ? 1 : 0;
    //$thumbnail = addslashes($_POST['imagem']);
