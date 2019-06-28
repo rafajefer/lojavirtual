@@ -23,7 +23,7 @@
                     <!-- Start .\ Produto -->
                     <div class="quatro-colunas-cat sub">
                         <div class="cx-img">
-                            <a href="<?php echo $produto->slug; ?>"><img src="<?php echo URL_BASE.$produto->thumbnail; ?>"></a>
+                            <a href="<?php echo URL_BASE."produto/".$produto->slug; ?>"><img src="<?php echo URL_BASE.$produto->thumbnail; ?>"></a>
                         </div>
                         <h2><a href="<?php echo URL_BASE."produto/".$produto->slug; ?>"><?php echo mb_strimwidth($produto->nome, 0, 60, "..."); ?></a></h2>
                         <div class="prc-ant"><small>De R$ <?php echo number_format($produto->preco_alto,2,",","."); ?></small> <font>Por</font></div>

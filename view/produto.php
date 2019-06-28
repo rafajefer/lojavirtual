@@ -16,8 +16,8 @@
 			<div class="cx-opcoes">
 				<h3><?php echo $produto->nome; ?></h3>
 				<div class="cx-preco">
-					<span class="preco-antigo">de R$ <?php echo $produto->preco_alto; ?></span> <span class="desconto">por apenas</span>
-					<h2>R$ <?php echo $produto->preco; ?></h2>
+					<span class="preco-antigo">de R$ <?php echo number_format($produto->preco_alto,2,",","."); ?></span> <span class="desconto">por apenas</span>
+					<h2>R$ <?php echo number_format($produto->preco,2,",","."); ?></h2>
 					<span>em até 10x nos cratões</span>
 					<i class="bandeiras"></i>
 				</div>
