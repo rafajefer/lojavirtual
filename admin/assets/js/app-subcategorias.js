@@ -94,6 +94,30 @@ $(function () {
       });
    });
 
+   // Abre modal com todos os produtos da subcategoria clicada
+   $(document).on('click', 'button[data-id]', function() {
+      let id = $(this).attr('data-id');
+      let subcategoria = $(this).parent().parent().children().eq(1).html();
+      $.post(view + '/getProdutos.php', {id, subcategoria}, function (response) {
+         let header = "<span class='badge badge-pill badge-success'>Produtos da subcategoria:</span> " + subcategoria;
+         let obj = JSON.parse(response);
+         let body = "<ul class='list-group'>";    
+         $.each(obj, function( index, value ) {
+           body +=  "<li class='list-group-item'>" + value.nome + "</li>";
+          });
+         body += "</ul><br />";
+         body += "<strong> Total de produtos: " + obj.length + "</strong>";
+         modal(header, body);
+      })
+   });
 
+   // Função para chama o modal
+   function modal(header, body, footer) {
+      let modal = $('#myModal');
+      modal.find("h4").html(header);
+      modal.find('.modal-body').html(body);
+      modal.find('.modal-footer').html(footer);
+      modal.modal();
+   }
 
 });

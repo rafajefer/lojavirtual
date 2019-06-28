@@ -64,13 +64,14 @@ if (!empty($_GET['search'])) {
       <p class="limpar">&nbsp;</p>
 
 
-      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <table width="100%" cellpadding="2" cellspacing="2">
          <thead>
             <tr>
-               <td align="center" class="tdbc" width="60">ID</td>
-               <td align="center" class="tdbc">Subcategoria</td>
-               <td align="center" class="tdbc"  width="60">Ativo</td>
-               <td align="center" class="tdbc"  width="160">Ação</td>
+               <td class="text-center tdbc" width="60">ID</td>
+               <td class="text-center tdbc">Subcategoria</td>
+               <td class="text-center tdbc">Produtos</td>
+               <td class="text-center tdbc"  width="60">Ativo</td>
+               <td class="text-center tdbc"  width="160">Ação</td>
             </tr>
          </thead>
          <tbody id="listagem">
@@ -79,10 +80,17 @@ if (!empty($_GET['search'])) {
             foreach ($listagem as $row):
                $cat = new Categoria();
                $categoria = $cat->find((int)$row->categoria_id);
+               $prod = new Produto();
+               $produtos = $prod->getProdutos($row->id);
                ?>
                <tr class="<?php echo $striped; ?>">
-                  <td align="center"><?php echo $row->id; ?></td>
+                  <td class="text-center"><?php echo $row->id; ?></td>
                   <td><?php echo $row->nome; ?> <sup style="font-size: 12px; color: #666">Cat: <?php echo $categoria->nome; ?></sup></td>
+                  <td class="text-center">
+                     <button type="button" class="btn btn-sm btn-link" data-id="<?=$row->id?>">
+                        <span class="badge <?=count($produtos)>0 ? 'badge-success' : 'badge-secondary';?>"><?=count($produtos);?></span> prod.
+                     </button>
+                  </td>
                   <td class="text-center">
                      <div class="custom-control custom-switch ">
                         <input type="checkbox" class="custom-control-input" id="switch<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>" data-value="<?php echo $row->status; ?>" <?php echo $row->status == true ? 'checked' : ''; ?>>
