@@ -1,4 +1,8 @@
-
+<?php 
+// Carousel principal
+$carousel = new Carousel('principal', 1); 
+$itens = $carousel->getItens();
+?>
 <!--banner topo-->
 <div class="cx-banner-topo">
    <div class="conteudo">
@@ -7,18 +11,15 @@
             <div class="slide_nav_item b"></div>
             <div class="slide_nav_item g"></div>
          </div>
-
-
-         <article class="slide_item first">
+         <?php $first = 1; ?>
+         <?php foreach($itens as $item): ?>
+         <article class="slide_item <?=$first==1 ? 'first' : ''; ?>">
             <div class="base-bn">
-               <a href="<?php echo URL_BASE ?>produto/&p=15"><img src="<?php echo URL_BASE ?>assets/imagens/banner/03.png" alt="banner 01" title="banner 01"></a>
+               <a href="<?php echo URL_BASE.$item->getUrl();?>"><img src="<?php echo URL_BASE.$item->getImagem();?>" alt="banner 01" title="<?php echo $item->getTitulo();?>"></a>
             </div>    
          </article>
-         <article class="slide_item">
-            <div class="base-bn">
-               <a href="<?php echo URL_BASE ?>produto/&p=10"><img src="<?php echo URL_BASE ?>assets/imagens/banner/02.png" alt="banner 01" title="banner 01"></a>
-            </div>    
-         </article>
+         <?php $first = 0;?>
+         <?php endforeach; ?>
 
 
       </section>
