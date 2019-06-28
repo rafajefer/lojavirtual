@@ -35,7 +35,7 @@ $config = new Empresa();
       <div class="base-topo">
 
          <div class="conteudo">
-            <a href="<?php echo URL_BASE ?>" title="logo loja virtual" class="logo"><img src="<?php echo URL_BASE ?>assets/imagens/logo-topo.png"></a>		
+            <a href="<?php echo URL_BASE ?>" title="logo loja virtual" class="logo"><img src="<?php echo URL_BASE.$config->getLogo();?>"></a>		
             <div class="carrinho-topo">
                <ul>
 

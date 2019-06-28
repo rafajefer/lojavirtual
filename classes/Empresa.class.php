@@ -14,6 +14,7 @@ class Empresa {
     private $celular;
     private $email;
     private $cnpj;
+    private $logo;
     private $facebook;
     private $twitter;
     private $instagram;
@@ -37,6 +38,7 @@ class Empresa {
             $this->celular = $data->celular;
             $this->email = $data->email;
             $this->cnpj = $data->cnpj;
+            $this->logo = $data->logo;
             $this->facebook = $data->facebook;
             $this->twitter = $data->twitter;
             $this->instagram = $data->instagram;
@@ -64,6 +66,10 @@ class Empresa {
     public function getCnpj()
     {
         return $this->cnpj;
+    }
+    public function getLogo()
+    {
+        return $this->logo;
     }
     public function getFacebook()
     {
