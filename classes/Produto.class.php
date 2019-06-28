@@ -95,7 +95,7 @@ class Produto extends Crud
     public function getDestaque()
     {
         $result = array();
-        $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM produto WHERE destaque = 1 AND status = 1 ORDER BY RAND() DESC LIMIT 3";
+        $sql = "SELECT id, nome, preco_alto, preco, descricao, detalhes, thumbnail FROM $this->table WHERE destaque = 1 AND status = 1 ORDER BY RAND() DESC LIMIT 3";
         $stmt = Conexao::prepare($sql);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
@@ -103,6 +103,27 @@ class Produto extends Crud
         }
         return $result;
     }
+
+    public function getLancamentos()
+    {
+        $result = array();
+        $sql = "SELECT * FROM $this->table ORDER BY created_at DESC LIMIT 3";
+    }
+
+    public function getProdutosLimit($limit, $order = null) {
+        $result = array();
+        if(empty($order)) {
+            $sql = "SELECT * FROM $this->table ORDER BY $this->table.nome LIMIT ".$limit;
+        } else {
+            $sql = "SELECT * FROM $this->table ORDER BY ".$this->table.'.'.$order." LIMIT ".$limit;
+        }
+        $stmt = Conexao::prepare($sql);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $result = $stmt->fetchAll();
+        }
+        return $result;
+   }
 
     // Adiciona um novo registro na tabela
     public function insert($categoria_id, $subcategoria_id, $fabricante_id, $nome, $preco_alto, $preco, $descricao, $detalhes, $status, $destaque)

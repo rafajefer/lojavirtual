@@ -90,7 +90,7 @@ class Subcategoria extends Crud
         $stmt->bindValue(':nome', $nome);
         $stmt->bindValue(':status', $status);
         $stmt->bindValue(':categoria_id', $categoria_id);
-        $stmt->bindValue(':slug', Funcao::slug($nome));
+        $stmt->bindValue(':slug', Funcao::slug(trim($nome)));
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             return true;
@@ -115,7 +115,7 @@ class Subcategoria extends Crud
         $sql = "UPDATE $this->table SET nome = :nome, slug = :slug, categoria_id = :categoria_id WHERE id = :id";
         $stmt = Conexao::prepare($sql);
         $stmt->bindValue(':nome', $nome);
-        $stmt->bindValue(':slug', Funcao::slug($nome));
+        $stmt->bindValue(':slug', Funcao::slug(trim($nome)));
         $stmt->bindValue(':categoria_id', $categoria_id);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
