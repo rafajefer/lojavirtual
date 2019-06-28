@@ -1,10 +1,11 @@
 <?php
 require_once './autoload.php';
+$config = new Empresa();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
    <head>
-      <title>Loja Virtual</title>
+      <title><?=$config->getEmpresa();?></title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -19,8 +20,8 @@ require_once './autoload.php';
       <div class="mn-topo">
          <div class="conteudo">
             <div class="contato-topo">
-               <h1>TELEFONE &nbsp;<strong>00 0000-0000 / 00000-0000</strong></h1>
-               <h1>E-MAIL &nbsp;<strong>comercial@lojavirtual.com.br</strong></h1>		
+               <h1>TELEFONE &nbsp;<strong><?=$config->getTelefone();?> / <?=$config->getCelular(); ?></strong></h1>
+               <h1>E-MAIL &nbsp;<strong><?=$config->getEmail();?></strong></h1>		
                <ul class="menu-topo">
                   <li><a href="<?php echo URL_BASE ?>">HOME	</a></li>    
                   <li><a href="<?php echo URL_BASE ?>cadastro">cadastrar	</a></li>
@@ -198,7 +199,7 @@ require_once './autoload.php';
 
             <div class="cx-mr">
                <strong>REDES SOCIAIS</strong>
-               <a href="#" class="ico-face">facebook</a>
+               <a href="<?=$config->getFacebook();?>" class="ico-face">facebook</a>
                <a href="#" class="ico-youtube">youtube</a>
                <a href="#" class="ico-twitter">twitter</a>
 
@@ -207,8 +208,8 @@ require_once './autoload.php';
 
          </div>
          <div class="copy">
-            <p>Copyright - Loja virtual2.0</p>
-            <p>CNPJ: 0001.110.0002/00</p>
+            <p>Copyright - <?=$config->getEmpresa();?></p>
+            <p>CNPJ: <?=$config->getCnpj();?></p>
          </div>
       </div>
 

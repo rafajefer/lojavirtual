@@ -1,5 +1,5 @@
 
-﻿<!--banner topo-->
+<!--banner topo-->
 <div class="cx-banner-topo">
    <div class="conteudo">
       <section class="slide">

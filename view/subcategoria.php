@@ -27,7 +27,7 @@
                         </div>
                         <h2><a href="<?php echo URL_BASE."produto/".$produto->slug; ?>"><?php echo mb_strimwidth($produto->nome, 0, 60, "..."); ?></a></h2>
                         <div class="prc-ant"><small>De R$ <?php echo number_format($produto->preco_alto,2,",","."); ?></small> <font>Por</font></div>
-                        <h3><?php echo number_format($produto->preco,2,",","."); ?></h3>
+                        <h3> R$ <?php echo number_format($produto->preco,2,",","."); ?></h3>
 
                         <div class="cx-botoes">
                             <form id="form1" name="frmcarrinho" method="post" action="<?php echo URL_BASE ?>/carrinho">
