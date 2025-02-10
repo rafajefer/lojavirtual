@@ -1,2 +1,6 @@
 /nbproject/private/
 assets/imagens/produtos/
+classes/Config.php
+.docker/mysql/data
+.htaccess
+admin/.htaccess

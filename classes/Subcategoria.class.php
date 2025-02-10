@@ -177,7 +177,7 @@ class Subcategoria extends Crud
     // Retorna total de subcategorias de uma determinada de categoria
     public function total($categoria_id = null) {
         if(!empty($categoria_id)) {
-            $sql = "SELECT id, count(id) as total FROM $this->table WHERE categoria_id = :categoria_id";
+            $sql = "SELECT count(id) as total FROM $this->table WHERE categoria_id = :categoria_id";
             $stmt = Conexao::prepare($sql);
             $stmt->bindValue(':categoria_id', $categoria_id);
         } else {

@@ -1,7 +1,7 @@
 <?php
 
 // Carrega as constantes usadas na url do navbar
-require_once 'classes/config.php';
+require_once 'classes/Config.php';
 
 // Autoload das classes
 spl_autoload_register(function($className) {

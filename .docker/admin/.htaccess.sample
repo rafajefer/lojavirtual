@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /cursos/php/lojavirtual/index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ /admin/index.php?p=$1 [QSA,L]
